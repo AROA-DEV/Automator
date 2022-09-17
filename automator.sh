@@ -5,12 +5,8 @@ GREEN="\e[32m"
 YELOW="\e[33m"  
 BLUE="\e[34m"
 ENDCOLOR="\e[0m"
-
-
+;
 # echo -e "${color} colored text ${ENDCOLOR}"
-
-
-
 echo 
 echo 
 echo _█████╗_██╗___██╗████████╗_██████╗_███╗___███╗_█████╗_████████╗_██████╗_██████╗ 
