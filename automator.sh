@@ -122,7 +122,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     systemsetup ) apt install sudo;
                   cd /
                   cd bin
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator.sh
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
                   chmod +x automator
                   cd /
                   apt update -y && apt upgrade -y;
