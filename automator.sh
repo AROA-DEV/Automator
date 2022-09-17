@@ -4,7 +4,7 @@ RED="\e[31m"
 GREEN="\e[32m"
 YELOW="\e[33m"  
 BLUE="\e[34m"
-ENDCOLOR="\e[0m"
+ENDCOLOR="\e[0m";
 echo 
 echo 
 echo _█████╗_██╗___██╗████████╗_██████╗_███╗___███╗_█████╗_████████╗_██████╗_██████╗ 
@@ -122,7 +122,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     systemsetup ) apt install sudo;
                   cd /
                   cd bin
-                  wget https://github.com/AROA-DEV/automator/blob/main/automator
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator.sh
                   chmod +x automator
                   cd /
                   apt update -y && apt upgrade -y;
