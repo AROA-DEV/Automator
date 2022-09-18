@@ -17,11 +17,14 @@ echo
 uptime
 who
 echo
+echo -e "${RED}!! recomended to run as root !!${ENDCOLOR}"
+echo
 echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}"
+echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
 echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
@@ -42,13 +45,17 @@ case $yn in
 
     2 ) echo ;
         echo -e metasploit "${YELOW} [2001]${ENDCOLOR}";
+        echo -e setoolkit "${YELOW} [2002]${ENDCOLOR}";
+        echo -e metasploit "${YELOW} [2003]${ENDCOLOR}";
         echo ;;
 
     3 ) echo ;
         echo -e Wifite     "${color} [3001]${ENDCOLOR}";
         echo ;;
     
-
+    4 ) echo ;
+        echo -e lynis     "${color} [4001]${ENDCOLOR}";
+        echo ;;
     
 # OSINT options
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
@@ -77,11 +84,30 @@ case $yn in
            chmod 755 msfinstall && \ ;
            ./msfinstall;;
 
+    2002 ) mkdir SEToolkit;
+           cd SEToolkit;
+           git clone https://github.com/trustedsec/social-engineer-toolkit setoolkit/;
+           cd setoolkit;
+           pip3 install -r requirements.txt;
+           python setup.py;
+           echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
+
+    2003 ) sudo apt update;
+           sudo apt install curl wget gnupg2;
+           curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall;
+           chmod +x msfinstall;
+           ./msfinstall;
+           echo run "${YELOW}[ msfdb ]${ENDCOLOR}";;
+
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
            cd wifite2 ;
            sudo ./Wifite.py ;
            sudo python setup.py install ;;
+
+# vulnerability detection
+    4001 ) git clone https://github.com/CISOfy/lynis
+            cd lynis && ./lynis audit system;;
 
 # Options
     op ) echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}";
@@ -89,8 +115,7 @@ echo -e update "${YELOW}[update]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
-echo -e conecting to Dserver through ssh Local "${YELOW}[loc]${ENDCOLOR}";
-echo -e ssh start remote "${YELOW}[rem]${ENDCOLOR}";
+echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
@@ -99,21 +124,20 @@ echo -e update "${YELOW}[update]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
-echo -e conecting to Dserver through ssh Local "${YELOW}[loc]${ENDCOLOR}";
-echo -e ssh start remote "${YELOW}[rem]${ENDCOLOR}";
+echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
 # Project info
     v ) echo ;
         echo ;
-        echo         ===================; 
-        echo         =___Open_release__=;
-        echo         =_________________=;
-        echo         =___version 1.0___=;
-        echo         =___OS: linux_____=;
-        echo         =_____AROA-DEV____=;
-        echo         ===================;
+        echo         ====================; 
+        echo         =___Open_Testing___=;
+        echo         =__________________=;
+        echo         =_version_1.1_beta_=;
+        echo         =___OS: _linux_____=;
+        echo         =______AROA-DEV____=;
+        echo         ====================;
         echo ;
         echo ;;
 

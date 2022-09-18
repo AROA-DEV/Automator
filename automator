@@ -114,7 +114,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     v ) echo ;
         echo ;
         echo         ===================; 
-        echo         =___Open_Testing__=;
+        echo         =___Open_release__=;
         echo         =_________________=;
         echo         =___version 1.0___=;
         echo         =___OS: linux_____=;
