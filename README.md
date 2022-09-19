@@ -5,6 +5,16 @@ Get automator
 ````
  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator.sh
 ````
+make automator script runable
+````
+ chmod +x automator.sh
+````
+run automator
+````
+ ./automator
+````
+
+run "systemsetup" to be able to run 
 
 tested os: Debian 11,
 
