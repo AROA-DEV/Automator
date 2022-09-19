@@ -1,6 +1,11 @@
 # automator
 automated set up
 
+Get automator
+````
+ wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator.sh
+````
+
 tested os: Debian 11,
 
 and automated install for tools:
