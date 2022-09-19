@@ -1,5 +1,6 @@
 # automator
 automated set up
+tested os: Debian 11,
 
 and automated install for tools:
 
