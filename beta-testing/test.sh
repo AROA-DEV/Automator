@@ -17,7 +17,11 @@ echo
 uptime
 who
 echo
-echo -e "${RED}!! recomended to run as root !!${ENDCOLOR}"
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo -e "${RED}!! recomended to run as root !!${ENDCOLOR}"
+    sleep 5
+fi
+echo
 echo
 echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
@@ -35,7 +39,8 @@ case $yn in
 
 # simple uptions output
     1 ) echo ;
-        echo Remember the pakets will be installed onthe active directory;
+        echo Remember some of the pakets will be installed onthe active directory;
+        echo instaling in $pwd
         echo ;
         echo -e Osintgram  "${YELOW} [1001]${ENDCOLOR}";
         echo -e Recon-ng   "${YELOW} [1002]${ENDCOLOR}";
@@ -44,16 +49,22 @@ case $yn in
         echo ;;
 
     2 ) echo ;
+        echo Remember some of the pakets will be installed onthe active directory;
+        echo ;
         echo -e metasploit "${YELOW} [2001]${ENDCOLOR}";
         echo -e setoolkit "${YELOW} [2002]${ENDCOLOR}";
         echo -e metasploit "${YELOW} [2003]${ENDCOLOR}";
         echo ;;
 
     3 ) echo ;
+        echo Remember some of the pakets will be installed onthe active directory;
+        echo ;
         echo -e Wifite     "${color} [3001]${ENDCOLOR}";
         echo ;;
     
-    4 ) echo ;
+    4 ) echo ;echo ;
+        echo Remember some of the pakets will be installed onthe active directory;
+        echo ;
         echo -e lynis     "${color} [4001]${ENDCOLOR}";
         echo ;;
     
@@ -135,8 +146,8 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         =___Open_Testing___=;
         echo         =__________________=;
         echo         =_version_1.1_beta_=;
-        echo         =___OS: _linux_____=;
-        echo         =______AROA-DEV____=;
+        echo         =___OS: Debian_11__=;
+        echo         =_____AROA-DEV_____=;
         echo         ====================;
         echo ;
         echo ;;
@@ -148,6 +159,8 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   cd bin
                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
                   chmod +x automator
+                  wget https://github.com/AROA-DEV/automator/blob/main/testing/automator-update # change link when pass to release version
+                  chmod +X automator-update
                   cd /
                   apt update -y && apt upgrade -y;
                   apt install -y git;
@@ -159,12 +172,13 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
+                  sleep 5
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;
 
 # invalid option (keep last)    
-    * ) echo invalid response;;    
+    * ) echo invalid response run [help] ;;    
 esac
 
 done
