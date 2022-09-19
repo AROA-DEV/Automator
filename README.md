@@ -14,7 +14,7 @@ run automator
  ./automator
 ````
 
-run "systemsetup" to be able to run 
+run "systemsetup" to be able to run it from any location
 
 tested os: Debian 11,
 
