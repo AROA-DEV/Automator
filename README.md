@@ -3,6 +3,10 @@ automated set up
 
 Get automator
 ````
+ wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator.sh
+````
+testing branch
+````
  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator.sh
 ````
 make automator script runable
