@@ -166,7 +166,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   cd bin
                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
                   chmod +x automator
-                  wget https://github.com/AROA-DEV/automator/blob/main/testing/automator-update # change link when pass to release version
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update # change link when pass to release version
                   chmod +X automator-update
                   cd /
                   apt update -y && apt upgrade -y;
