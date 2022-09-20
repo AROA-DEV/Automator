@@ -25,6 +25,7 @@ echo
 echo
 echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
+echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}"
@@ -152,7 +153,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         ====================; 
         echo         =___Open_Testing___=;
         echo         =__________________=;
-        echo         =_version_1.1_beta_=;
+        echo         =_version_1.2_beta_=;
         echo         =___OS: Debian_11__=;
         echo         =_____AROA-DEV_____=;
         echo         ====================;
@@ -179,7 +180,8 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
-                  sleep 5
+                  echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
+                  sleep 10
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;
