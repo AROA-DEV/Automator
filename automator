@@ -30,7 +30,7 @@ echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
-echo -e show options "${YELOW}[op]${ENDCOLOR}"
+echo -e show options "${YELOW}[op / help]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
 while true; do
