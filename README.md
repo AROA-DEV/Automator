@@ -21,6 +21,8 @@ run automator
 run "systemsetup" to be able to run it from any location
 
 tested os: Debian 11,
+<details><summary>Features</summary>
+<p>
 
 and automated install for tools:
 
@@ -40,3 +42,20 @@ and automated install for tools:
 
 - vulnerability detection tools:
    - lynis
+
+</p>
+</details>
+
+<details><summary>Next Releas</summary>
+<p>
+
+Upcoming features:
+( the check features checked are avaleable in the beta branch but havent made it to the release version )
+
+- [x] Docker install
+- [ ] Wifite
+
+
+</p>
+</details>
+
