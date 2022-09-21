@@ -18,13 +18,14 @@ uptime
 who
 echo
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo -e "${RED}!! recomended to run as root !!${ENDCOLOR}"
+    echo -e "${RED}!!! run as root !!!${ENDCOLOR}"
     sleep 5
 fi
 echo
 echo
-echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}"
+echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
+echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}"
@@ -40,7 +41,8 @@ case $yn in
 # simple uptions output
     1 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
-        echo instaling in $pwd
+        echo instaling in:
+        pwd ;
         echo ;
         echo -e Osintgram  "${YELOW} [1001]${ENDCOLOR}";
         echo -e Recon-ng   "${YELOW} [1002]${ENDCOLOR}";
@@ -50,6 +52,8 @@ case $yn in
 
     2 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
+        echo instaling in:
+        pwd ;
         echo ;
         echo -e metasploit "${YELOW} [2001]${ENDCOLOR}";
         echo -e setoolkit "${YELOW} [2002]${ENDCOLOR}";
@@ -58,12 +62,16 @@ case $yn in
 
     3 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
+        echo instaling in:
+        pwd ;
         echo ;
         echo -e Wifite     "${color} [3001]${ENDCOLOR}";
         echo ;;
     
-    4 ) echo ;echo ;
+    4 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
+        echo instaling in:
+        pwd ;
         echo ;
         echo -e lynis     "${color} [4001]${ENDCOLOR}";
         echo ;;
@@ -145,7 +153,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         ====================; 
         echo         =___Open_Testing___=;
         echo         =__________________=;
-        echo         =_version_1.1_beta_=;
+        echo         =_version_1.2_beta_=;
         echo         =___OS: Debian_11__=;
         echo         =_____AROA-DEV_____=;
         echo         ====================;
@@ -157,10 +165,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     systemsetup ) apt install sudo;
                   cd /
                   cd bin
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator # change link when pass to release version -> https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
                   chmod +x automator
-                  wget https://github.com/AROA-DEV/automator/blob/main/testing/automator-update # change link when pass to release version
-                  chmod +X automator-update
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update # change link when pass to release version -> https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update
+                  chmod +x automator-update
                   cd /
                   apt update -y && apt upgrade -y;
                   apt install -y git;
@@ -172,7 +180,8 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
-                  sleep 5
+                  echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
+                  sleep 10
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;
