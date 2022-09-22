@@ -129,22 +129,24 @@ case $yn in
             cd lynis && ./lynis audit system;;
 
 # Options
-    op ) echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}";
+    op ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
-echo -e show options "${YELOW}[op]${ENDCOLOR}";
+echo -e show options "${YELOW}[op / help]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
-    help ) echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}";
+    help ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
-echo -e show options "${YELOW}[op]${ENDCOLOR}";
+echo -e show options "${YELOW}[op / help]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
 # Project info
