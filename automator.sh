@@ -152,7 +152,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         ====================; 
         echo         =___Open_Testing___=;
         echo         =__________________=;
-        echo         =_version_1.1_beta_=;
+        echo         =___version_1.1____=;
         echo         =___OS: Debian_11__=;
         echo         =_____AROA-DEV_____=;
         echo         ====================;
