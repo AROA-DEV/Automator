@@ -80,14 +80,12 @@ case $yn in
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
            cd Osintgram;
            pip3 install -r requirements.txt;
-           wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/Osintgram/usage.txt; 
            cd .. ;;
 
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
 
     1003 ) mkdir Phoneinfoga ;
            cd PhoneInfoga ;
-           wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/phoneinfoga/usage.txt ;
            curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash ;
            ./phoneinfoga version ;
            cd ..;;
@@ -127,6 +125,12 @@ case $yn in
 # vulnerability detection
     4001 ) git clone https://github.com/CISOfy/lynis
             cd lynis && ./lynis audit system;;
+
+# Utilities 
+
+    nettest ) ping google.com -c ;;
+
+    update ) apt update -y && apt upgrade -y;;
 
 # Options
     op ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
@@ -185,8 +189,6 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
                   sleep 10
                   systemctl reboot -i ;;
-
-    update ) apt update -y && apt upgrade -y;;
 
 # invalid option (keep last)    
     * ) echo invalid response run [help] ;;    
