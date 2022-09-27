@@ -29,6 +29,7 @@ echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
+echo -e test network "${YELOW}[network]${ENDCOLOR}"
 echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
@@ -75,6 +76,9 @@ case $yn in
         echo -e lynis     "${color} [4001]${ENDCOLOR}";
         echo ;;
     
+    network ) echo -e show ip "${YELOW}[ip]${ENDCOLOR}";
+              echo -e ping google.com "${YELOW}[ping]${ENDCOLOR}";;
+
 # OSINT options
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
            cd Osintgram;
@@ -124,27 +128,36 @@ case $yn in
            sudo python setup.py install ;;
 
 # vulnerability detection
-    4001 ) git clone https://github.com/CISOfy/lynis
+    4001 ) git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
+# Network check
+    ip ) ip addr;;
+
+    ping ) ping google.com;;    
+
 # Options
-    op ) echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}";
+    op ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
+echo -e test network "${YELOW}[network]${ENDCOLOR}";
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
-    help ) echo -e compleate system setup "${RED}[!!!run ass root!!!]${ENDCOLOR}" "${YELOW}[systemsetup]${ENDCOLOR}";
+    help ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
+echo -e test network "${YELOW}[network]${ENDCOLOR}";
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
+
+
 
 # Project info
     v ) echo ;
