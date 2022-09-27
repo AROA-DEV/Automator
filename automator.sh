@@ -25,12 +25,12 @@ echo
 echo
 echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
-echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
-echo -e show options "${YELOW}[op / help]${ENDCOLOR}"
+echo -e test network "${YELOW}[network]${ENDCOLOR}"
+echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
 while true; do
@@ -76,16 +76,21 @@ case $yn in
         echo -e lynis     "${color} [4001]${ENDCOLOR}";
         echo ;;
     
+    network ) echo -e show ip "${YELOW}[ip]${ENDCOLOR}";
+              echo -e ping google.com "${YELOW}[ping]${ENDCOLOR}";;
+
 # OSINT options
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
            cd Osintgram;
            pip3 install -r requirements.txt;
+           wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/Osintgram/usage.txt; 
            cd .. ;;
 
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
 
     1003 ) mkdir Phoneinfoga ;
            cd PhoneInfoga ;
+           wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/phoneinfoga/usage.txt ;
            curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash ;
            ./phoneinfoga version ;
            cd ..;;
@@ -123,35 +128,36 @@ case $yn in
            sudo python setup.py install ;;
 
 # vulnerability detection
-    4001 ) git clone https://github.com/CISOfy/lynis
+    4001 ) git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
-# Utilities 
+# Network check
+    ip ) ip addr;;
 
-    nettest ) ping google.com -c ;;
-
-    update ) apt update -y && apt upgrade -y;;
+    ping ) ping google.com;;    
 
 # Options
     op ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
-echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
-echo -e show options "${YELOW}[op / help]${ENDCOLOR}";
+echo -e test network "${YELOW}[network]${ENDCOLOR}";
+echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
     help ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
-echo -e check internet acces "${YELOW}[nettest]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
-echo -e show options "${YELOW}[op / help]${ENDCOLOR}";
+echo -e test network "${YELOW}[network]${ENDCOLOR}";
+echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";;
+
+
 
 # Project info
     v ) echo ;
@@ -159,7 +165,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         ====================; 
         echo         =___Open_Testing___=;
         echo         =__________________=;
-        echo         =_version_1.2_beta_=;
+        echo         =___version_1.1____=;
         echo         =___OS: Debian_11__=;
         echo         =_____AROA-DEV_____=;
         echo         ====================;
@@ -171,10 +177,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     systemsetup ) apt install sudo;
                   cd /
                   cd bin
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator # change link when pass to release version -> https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
                   chmod +x automator
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update # change link when pass to release version -> https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update
-                  chmod +x automator-update
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update # change link when pass to release version
+                  chmod +X automator-update
                   cd /
                   apt update -y && apt upgrade -y;
                   apt install -y git;
@@ -186,9 +192,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
-                  echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
-                  sleep 10
+                  sleep 5
                   systemctl reboot -i ;;
+
+    update ) apt update -y && apt upgrade -y;;
 
 # invalid option (keep last)    
     * ) echo invalid response run [help] ;;    
