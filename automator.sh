@@ -175,13 +175,15 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 # full system set up
 
     systemsetup ) apt install sudo;
-                  cd /
-                  cd bin
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
-                  chmod +x automator
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update # change link when pass to release version
-                  chmod +X automator-update
-                  cd /
+                  cd /;
+                  cd bin;
+                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator # change link when pass to release version;
+                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
+                  chmod +x automator;
+                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update # change link when pass to release version;
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
+                  chmod +X automator-update;
+                  cd /;
                   apt update -y && apt upgrade -y;
                   apt install -y git;
                   apt install -y python;
