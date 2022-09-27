@@ -11,6 +11,7 @@ cd /
 cd bin
 rm automator
 wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator # change link when pass to release version -> https://raw.githubusercontent.com/AROA-DEV/automator/main/automator
+
 chmod +x automator
 
 echo
