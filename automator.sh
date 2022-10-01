@@ -93,8 +93,8 @@ case $yn in
 
     1003 ) git clone https://github.com/m4ll0k/Infoga.git;
            cd Infoga;
-           python setup.py install;
-           python infoga.py;;
+           python3 setup.py install;
+           python3 infoga.py;;
 
     1004 ) mkdir Phoneinfoga ;
            cd PhoneInfoga ;
