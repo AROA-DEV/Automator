@@ -50,6 +50,7 @@ case $yn in
         echo -e infoga "${YELOW} [1003]${ENDCOLOR}";        
         echo -e phoneinfoga "${YELOW} [1004]${ENDCOLOR}";
         echo -e nmap      "${YELOW} [1005]${ENDCOLOR}";
+        echo -e Profil3r   "${YELOW} [1006]${ENDCOLOR}";
         echo ;;
 
     2 ) echo ;
@@ -78,8 +79,10 @@ case $yn in
         echo -e lynis     "${color} [4001]${ENDCOLOR}";
         echo ;;
     
-    network ) echo -e show ip "${YELOW}[ip]${ENDCOLOR}";
-              echo -e ping google.com "${YELOW}[ping]${ENDCOLOR}";;
+    network ) echo ;
+              echo -e show ip "${YELOW}[ip]${ENDCOLOR}";
+              echo -e ping google.com "${YELOW}[ping]${ENDCOLOR}";
+              echo ;;
 
 # OSINT options
 
@@ -107,6 +110,11 @@ case $yn in
            apt install nmap;
            apt upgarade -y;
            echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
+
+    1006 ) pip3 install PyInquirer jinja2 bs4;
+           git clone https://github.com/amitrajputfff/Profil3r.git;
+           cd Profil3r/;
+           python3 setup.py install;;
 
 
 # Exploit 
@@ -174,7 +182,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         ====================; 
         echo         =___Open_Testing___=;
         echo         =__________________=;
-        echo         =___version_1.1____=;
+        echo         =_version_1.2_beta_=;
         echo         =___OS: Debian_11__=;
         echo         =_____AROA-DEV_____=;
         echo         ====================;
