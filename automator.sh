@@ -39,6 +39,7 @@ read -p "how do you want to proceed? " yn
 case $yn in 
 
 # simple uptions output
+
     1 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
         echo instaling in:
@@ -80,6 +81,7 @@ case $yn in
               echo -e ping google.com "${YELOW}[ping]${ENDCOLOR}";;
 
 # OSINT options
+
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
            cd Osintgram;
            pip3 install -r requirements.txt;
@@ -98,10 +100,11 @@ case $yn in
     1004 ) apt update -y && apt upgarde -y;
            apt install nmap;
            apt upgarade -y;
-           exit;;
+           echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
 
 
 # Exploit 
+
     2001 ) curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \ ;
            chmod 755 msfinstall && \ ;
            ./msfinstall;;
