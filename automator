@@ -39,6 +39,7 @@ read -p "how do you want to proceed? " yn
 case $yn in 
 
 # simple uptions output
+
     1 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
         echo instaling in:
@@ -46,8 +47,9 @@ case $yn in
         echo ;
         echo -e Osintgram  "${YELOW} [1001]${ENDCOLOR}";
         echo -e Recon-ng   "${YELOW} [1002]${ENDCOLOR}";
-        echo -e phoneinfoga "${YELOW} [1003]${ENDCOLOR}";
-        echo -e nmap      "${YELOW} [1004]${ENDCOLOR}";
+        echo -e infoga "${YELOW} [1003]${ENDCOLOR}";        
+        echo -e phoneinfoga "${YELOW} [1004]${ENDCOLOR}";
+        echo -e nmap      "${YELOW} [1005]${ENDCOLOR}";
         echo ;;
 
     2 ) echo ;
@@ -80,6 +82,7 @@ case $yn in
               echo -e ping google.com "${YELOW}[ping]${ENDCOLOR}";;
 
 # OSINT options
+
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
            cd Osintgram;
            pip3 install -r requirements.txt;
@@ -88,20 +91,26 @@ case $yn in
 
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
 
-    1003 ) mkdir Phoneinfoga ;
+    1003 ) git clone https://github.com/m4ll0k/Infoga.git;
+           cd Infoga;
+           python setup.py install;
+           python infoga.py;;
+
+    1004 ) mkdir Phoneinfoga ;
            cd PhoneInfoga ;
            wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/phoneinfoga/usage.txt ;
            curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash ;
            ./phoneinfoga version ;
            cd ..;;
         
-    1004 ) apt update -y && apt upgarde -y;
+    1005 ) apt update -y && apt upgarde -y;
            apt install nmap;
            apt upgarade -y;
-           exit;;
+           echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
 
 
 # Exploit 
+
     2001 ) curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \ ;
            chmod 755 msfinstall && \ ;
            ./msfinstall;;
@@ -177,11 +186,11 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     systemsetup ) apt install sudo;
                   cd /;
                   cd bin;
-                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator # change link when pass to release version;
-                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator; # change link when pass to release version;
+                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
                   chmod +x automator;
-                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update # change link when pass to release version;
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update; # change link when pass to release version;
+                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
                   chmod +X automator-update;
                   cd /;
                   apt update -y && apt upgrade -y;

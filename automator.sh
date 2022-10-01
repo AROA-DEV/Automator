@@ -47,8 +47,9 @@ case $yn in
         echo ;
         echo -e Osintgram  "${YELOW} [1001]${ENDCOLOR}";
         echo -e Recon-ng   "${YELOW} [1002]${ENDCOLOR}";
-        echo -e phoneinfoga "${YELOW} [1003]${ENDCOLOR}";
-        echo -e nmap      "${YELOW} [1004]${ENDCOLOR}";
+        echo -e infoga "${YELOW} [1003]${ENDCOLOR}";        
+        echo -e phoneinfoga "${YELOW} [1004]${ENDCOLOR}";
+        echo -e nmap      "${YELOW} [1005]${ENDCOLOR}";
         echo ;;
 
     2 ) echo ;
@@ -90,14 +91,19 @@ case $yn in
 
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
 
-    1003 ) mkdir Phoneinfoga ;
+    1003 ) git clone https://github.com/m4ll0k/Infoga.git;
+           cd Infoga;
+           python setup.py install;
+           python infoga.py;;
+
+    1004 ) mkdir Phoneinfoga ;
            cd PhoneInfoga ;
            wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/phoneinfoga/usage.txt ;
            curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash ;
            ./phoneinfoga version ;
            cd ..;;
         
-    1004 ) apt update -y && apt upgarde -y;
+    1005 ) apt update -y && apt upgarde -y;
            apt install nmap;
            apt upgarade -y;
            echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
