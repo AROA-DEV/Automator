@@ -52,8 +52,7 @@ and automated install for tools:
 Upcoming features:
 ( the check features checked are avaleable in the beta branch but havent made it to the release version )
 
-- [x] Docker install
-- [ ] Wifite
+- [ ] Docker install
 
 
 </p>
