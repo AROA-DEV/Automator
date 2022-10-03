@@ -1,5 +1,5 @@
 # automator
-automated set up
+automated set up for tools in linux tested in Debian 11, kali linux
 
 Get automator
 ````
