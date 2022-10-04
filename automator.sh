@@ -19,6 +19,7 @@ who
 echo
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED}!!! run as root !!!${ENDCOLOR}"
+    echo -e "${RED} or a user with the permisions ${ENDCOLOR}"
     sleep 5
 fi
 echo
@@ -188,6 +189,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
         echo         ====================;
         echo ;
         echo ;;
+
+# system tool
+
+    clear ) clear;;
 
 # full system set up
 
