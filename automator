@@ -62,6 +62,7 @@ case $yn in
         echo -e metasploit "${YELOW} [2001]${ENDCOLOR}";
         echo -e setoolkit "${YELOW} [2002]${ENDCOLOR}";
         echo -e metasploit "${YELOW} [2003]${ENDCOLOR}";
+        echo -e SocialSploit "${YELOW} [2004]${ENDCOLOR}";
         echo ;;
 
     3 ) echo ;
@@ -138,6 +139,13 @@ case $yn in
            chmod +x msfinstall;
            ./msfinstall;
            echo run "${YELOW}[ msfdb ]${ENDCOLOR}";;
+
+    2004 )  pkg install -y git;
+            git clone https://github.com/Cesar-Hack-Gray/SocialSploit;
+            cd SocialSploit;
+            ls;
+            bash install.sh;
+            ./Sploit;;
 
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
@@ -216,7 +224,8 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
-                  sleep 5
+                  sleep 5x;
+                  reboot;
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;
