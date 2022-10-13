@@ -210,9 +210,14 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
     clear ) clear;;
 
     newuser ) echo -n "Enter the username: ";
-              read text;
-              useradd $text;
-              sudo adduser $text ;;
+              read new;
+              useradd $new;
+              sudo adduser $new ;;
+
+    remuveuser ) echo -n "Enter the username: ";
+                 read remuve;
+                 userdel -r $remuve;
+                 sudo deluser $remuve ;;
               
 # full system set up
 
