@@ -214,7 +214,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
               useradd $new;
               sudo adduser $new ;;
 
-    remuveuser ) echo -n "Enter the username: ";
+    remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
                  userdel -r $remuve;
                  sudo deluser $remuve ;;
