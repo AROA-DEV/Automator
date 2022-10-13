@@ -209,9 +209,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
     clear ) clear;;
 
-    newuser ) printf "Enter surname:\n";
-              read surname ;
-              sudo adduser $surname ;;
+    newuser ) echo -n "Enter the username: ";
+              read text;
+              useradd $text;
+              sudo adduser $text ;;
               
 # full system set up
 
