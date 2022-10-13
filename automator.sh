@@ -44,7 +44,10 @@ case $yn in
     system ) echo ;
              echo system tools ;
              echo ;
+             echo -e show system info "${YELOW}[sinfo]${ENDCOLOR}";
+             echo ;
              echo -e create user "${YELOW}[newuser]${ENDCOLOR}";
+             echo -e remuve user "${YELOW}[remuveuser]${ENDCOLOR}";
              echo ;
              ;;
 
@@ -170,7 +173,8 @@ case $yn in
     ping ) ping google.com;;    
 
 # Options
-    op ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
+    op ) echo;
+echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
@@ -178,9 +182,11 @@ echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
 echo -e test network "${YELOW}[network]${ENDCOLOR}";
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
-echo -e show version "${YELOW}[v]${ENDCOLOR}";;
+echo -e show version "${YELOW}[v]${ENDCOLOR}";
+echo ;;
 
-    help ) echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
+    help ) echo;
+echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
@@ -188,7 +194,8 @@ echo -e install Wireles tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
 echo -e test network "${YELOW}[network]${ENDCOLOR}";
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
-echo -e show version "${YELOW}[v]${ENDCOLOR}";;
+echo -e show version "${YELOW}[v]${ENDCOLOR}";
+echo ;;
 
 
 
@@ -207,12 +214,19 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
 # system tool
 
+    sinfo ) neofetch;;
+
     clear ) clear;;
 
     newuser ) echo -n "Enter the username: ";
-              read text;
-              useradd $text;
-              sudo adduser $text ;;
+              read new;
+              useradd $new;
+              sudo adduser $new ;;
+
+    remuveuser ) echo -n "Enter the username that you whant to remuve: ";
+                 read remuve;
+                 userdel -r $remuve;
+                 sudo deluser $remuve ;;
               
 # full system set up
 
