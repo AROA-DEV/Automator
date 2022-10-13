@@ -41,6 +41,13 @@ case $yn in
 
 # simple uptions output
 
+    system ) echo ;
+             echo system tools ;
+             echo ;
+             echo -e create user "${YELOW}[newuser]${ENDCOLOR}";
+             echo ;
+             ;;
+
     1 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
         echo instaling in:
@@ -62,6 +69,7 @@ case $yn in
         echo -e metasploit "${YELOW} [2001]${ENDCOLOR}";
         echo -e setoolkit "${YELOW} [2002]${ENDCOLOR}";
         echo -e metasploit "${YELOW} [2003]${ENDCOLOR}";
+        echo -e SocialSploit "${YELOW} [2004]${ENDCOLOR}";
         echo ;;
 
     3 ) echo ;
@@ -139,6 +147,13 @@ case $yn in
            ./msfinstall;
            echo run "${YELOW}[ msfdb ]${ENDCOLOR}";;
 
+    2004 )  pkg install -y git;
+            git clone https://github.com/Cesar-Hack-Gray/SocialSploit;
+            cd SocialSploit;
+            ls;
+            bash install.sh;
+            ./Sploit;;
+
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
            cd wifite2 ;
@@ -194,6 +209,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
     clear ) clear;;
 
+    newuser ) printf "Enter surname:\n";
+              read surname ;
+              sudo adduser $surname ;;
+              
 # full system set up
 
     systemsetup ) apt install sudo;
@@ -216,7 +235,8 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
-                  sleep 5
+                  sleep 5x;
+                  reboot;
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;

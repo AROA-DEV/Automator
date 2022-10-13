@@ -211,7 +211,7 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
     newuser ) printf "Enter surname:\n";
               read surname ;
-              adduser "$surname";;
+              sudo adduser $surname ;;
               
 # full system set up
 
