@@ -41,6 +41,13 @@ case $yn in
 
 # simple uptions output
 
+    system ) echo ;
+             echo system tools ;
+             echo ;
+             echo -e create user "${YELOW}[newuser]${ENDCOLOR}";
+             echo ;
+             ;;
+
     1 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
         echo instaling in:
@@ -202,6 +209,10 @@ echo -e show version "${YELOW}[v]${ENDCOLOR}";;
 
     clear ) clear;;
 
+    newuser ) printf "Enter surname:\n";
+              read surname ;
+              adduser "$surname";;
+              
 # full system set up
 
     systemsetup ) apt install sudo;
