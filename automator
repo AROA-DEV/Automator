@@ -22,6 +22,8 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permisions ${ENDCOLOR}"
     sleep 5
 fi
+echo 
+cat /etc/issue #check distro
 echo
 echo
 echo -e compleate system setup "${YELOW}[systemsetup]${ENDCOLOR}"
@@ -48,8 +50,7 @@ case $yn in
              echo ;
              echo -e create user "${YELOW}[newuser]${ENDCOLOR}";
              echo -e remuve user "${YELOW}[remuveuser]${ENDCOLOR}";
-             echo ;
-             ;;
+             echo ;;
 
     1 ) echo ;
         echo Remember some of the pakets will be installed onthe active directory;
