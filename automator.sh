@@ -73,6 +73,8 @@ case $yn in
         echo -e setoolkit "${YELOW} [2002]${ENDCOLOR}";
         echo -e metasploit "${YELOW} [2003]${ENDCOLOR}";
         echo -e SocialSploit "${YELOW} [2004]${ENDCOLOR}";
+        echo -e Havoc Client "${YELOW} [2005]${ENDCOLOR}";
+        echo -e Havoc Team server "${YELOW} [2006]${ENDCOLOR}";
         echo ;;
 
     3 ) echo ;
@@ -157,6 +159,30 @@ case $yn in
             bash install.sh;
             ./Sploit;;
 
+    2005 ) echo instaling Havoc Client;
+           sleep 5;
+           echo instaling pre requisites;
+           sudo apt install -y git build-essential apt-utils cmake libfontconfig1 libglu1-mesa-dev libgtest-dev libspdlog-dev libboost-all-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev mesa-common-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5websockets5 libqt5websockets5-dev qtdeclarative5-dev golang-go qtbase5-dev libqt5websockets5-dev libspdlog-dev python3-dev libboost-all-dev mingw-w64 nasm;
+           echo instaling python3.10
+           echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
+           sudo apt update;
+           sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10;
+           git clone https://github.com/HavocFramework/Havoc.git;
+           cd Havoc/Client;
+           make ;
+           ./Havoc;;
+    
+    2006 ) echo instaling Havoc Team server;
+           sleep 5;
+           cd Havoc/Teamserver;
+           go mod download golang.org/x/sys;
+           go mod download github.com/ugorji/go;
+           cd Havoc/Teamserver;
+           make;
+           echo "${RED}[ The users are the defaults ones remember to cahnge theme ]${RED}";
+           esleep 5;
+           ./teamserver -h;;
+
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
            cd wifite2 ;
@@ -206,7 +232,7 @@ echo ;;
         echo         =___Open_Testing___=;
         echo         =__________________=;
         echo         =_version_1.3_BETA_=;
-        echo         =___OS:_GNU/Linux__=;
+        echo         =___OS:_Debian_11__=;
         echo         =_____AROA-DEV_____=;
         echo         ====================;
         echo ;
@@ -250,7 +276,8 @@ echo ;;
                   apt-get install -y nmon;
                   apt install -y neofetch;
                   apt update -y && apt upgrade -y;
-                  sleep 5x;
+                  echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
+                  sleep 10;
                   reboot;
                   systemctl reboot -i ;;
 
