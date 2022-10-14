@@ -180,7 +180,7 @@ case $yn in
            cd Havoc/Teamserver;
            make;
            echo "${RED}[ The users are the defaults ones remember to cahnge theme ]${RED}";
-           esleep 5;
+           sleep 5;
            ./teamserver -h;;
 
 # Wireles atcks
