@@ -180,7 +180,7 @@ case $yn in
            cd Havoc/Teamserver;
            make;
            echo "${RED}[ The users are the defaults ones remember to cahnge theme ]${RED}";
-           esleep 5;
+           sleep 5;
            ./teamserver -h;;
 
 # Wireles atcks
@@ -252,7 +252,10 @@ echo ;;
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
                  userdel -r $remuve;
-                 sudo deluser $remuve ;;
+                 sudo deluser $remuve;
+                 cd /;
+                 cd home;
+                 rm -rf $remuve;;
               
 # full system set up
 

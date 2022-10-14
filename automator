@@ -252,7 +252,10 @@ echo ;;
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
                  userdel -r $remuve;
-                 sudo deluser $remuve ;;
+                 sudo deluser $remuve;
+                 cd /;
+                 cd home;
+                 rm -rf $remuve;;
               
 # full system set up
 
