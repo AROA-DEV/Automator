@@ -15,7 +15,7 @@ make automator script runable
 ````
 run automator
 ````
- ./automator
+ ./automator.sh
 ````
 
 run "systemsetup" to be able to run it from any location
