@@ -195,8 +195,14 @@ case $yn in
            cd Havoc/Teamserver;
            go mod download golang.org/x/sys;
            go mod download github.com/ugorji/go;
-           cd Havoc/Teamserver;
-           make;
+           cd Teamserver
+           # Install MUSL C Compiler
+           ./Install.sh
+           # Build Binary
+           make
+           ./teamserver -h
+           # Run the teamserver
+           sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
            echo "${RED}[ The users are the defaults ones remember to cahnge theme ]${RED}";
            sleep 5;
            ./teamserver -h;;
