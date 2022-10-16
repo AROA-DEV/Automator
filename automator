@@ -51,7 +51,7 @@ case $yn in
              echo -e show system info "${YELOW}[sinfo]${ENDCOLOR}";
              echo ;
              echo -e test network "${YELOW}[network]${ENDCOLOR}";
-             echo -e user settings "${YELLOW}[user]${ENDCOLOR}";
+             echo -e user settings "${YELOW}[user]${ENDCOLOR}";
              echo ;;
 
     user ) echo ;

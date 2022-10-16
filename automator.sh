@@ -274,7 +274,7 @@ echo ;;
                   apt install -y git;
                   apt install -y python;
                   apt install -y python3;
-                  apt install -y python3-pip;
+                  apt install -y python3-pip;au
                   apt install -y curl;
                   apt-get install -y wget;
                   apt-get install -y nmon;
