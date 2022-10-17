@@ -284,7 +284,9 @@ echo ;;
 # Network check
     ip ) ip addr;;
 
-    ping ) ping google.com;;  
+    ping ) echo -n "what would you like to ping: ";
+           read $chek;
+           ping $check;;
 
 # remote access to system 
 
