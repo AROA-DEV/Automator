@@ -116,6 +116,10 @@ case $yn in
         echo ;
         echo -e lynis     "${color} [4001]${ENDCOLOR}";
         echo ;;
+
+# office tools
+
+    0001 ) sudo apt install p7zip-full;;
     
 
 # OSINT options
