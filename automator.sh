@@ -193,6 +193,8 @@ case $yn in
            git clone https://github.com/HavocFramework/Havoc.git;
            cd Havoc/Client;
            make ;
+           cd Havoc/Client;
+           chmod +x Havoc ;
            ./Havoc;;
     
     2006 ) echo installing Havoc Team server;
