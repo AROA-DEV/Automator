@@ -1,7 +1,17 @@
 #!/bin/bash
-cat /etc/issue
-read distro
-if [[ "$distro" -eq "Debian" ]];
+    /etc/os-release
+    
+    cat
+    
+    grep
+    
+    /etc/os-release
+    
+    source /etc/os-release
+    
+    cat /etc/issue
+echo $distro
+if [[ "$distro" = "Debian" ]];
 then
  echo "You are using Debian"
 else
