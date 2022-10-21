@@ -1,7 +1,7 @@
 #!/bin/bash
 cat /etc/issue
 read distro
-if [[ $distro -eq Debian ]];
+if [[ "$distro" -eq "Debian" ]];
 then
  echo "You are using Debian"
 else
