@@ -1,17 +1,8 @@
 #!/bin/bash
-    /etc/os-release
-    
-    cat
-    
-    grep
-    
-    /etc/os-release
-    
-    source /etc/os-release
-    
-    cat /etc/issue
+cat /etc/issue read distro 
+read distro   
 echo $distro
-if [[ "$distro" = "Debian" ]];
+if [[ "$distro" = "Debian GNU/Linux bookworm/sid \n \l" ]];
 then
  echo "You are using Debian"
 else
