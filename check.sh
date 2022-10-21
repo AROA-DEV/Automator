@@ -24,7 +24,14 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 echo 
 
-source /etc/os-release read distro
-cat /etc/issue read distro
-check distro read distro
-if [ $distro -eq Debian ] then echo "You are using Debian" else echo "you are not using Debian some things may not work" fi
+/etc/os-release
+
+cat
+
+grep
+
+/etc/os-release
+
+source /etc/os-release
+
+cat /etc/issue #check distro read distro if [ $distro -eq Debian ] then         echo "You are using Debian" else         echo "you are not using Debian some things may not work" fi
