@@ -1,8 +1,7 @@
 #!/bin/bash
-cat /etc/issue read distro 
-read distro   
+read distro </etc/issue
 echo $distro
-if [[ "$distro" = "Debian GNU/Linux bookworm/sid \n \l" ]];
+if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
 then
  echo "You are using Debian"
 else

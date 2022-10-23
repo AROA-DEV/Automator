@@ -199,6 +199,7 @@ case $yn in
     
     2006 ) echo installing Havoc Team server;
            sleep 5;
+           git clone https://github.com/HavocFramework/Havoc.git;
            cd Havoc/Teamserver;
            go mod download golang.org/x/sys;
            go mod download github.com/ugorji/go;
