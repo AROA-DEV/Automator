@@ -205,6 +205,7 @@ case $yn in
            go mod download github.com/ugorji/go;
            cd Teamserver
            # Install MUSL C Compiler
+           chmod +x ./Install.sh
            ./Install.sh
            # Build Binary
            make
