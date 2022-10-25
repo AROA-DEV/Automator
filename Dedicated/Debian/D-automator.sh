@@ -22,6 +22,14 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
+if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
+then
+    echo -
+else
+    echo
+    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in an other distro things may not work ${ENDCOLOR}"
+    echo
+fi
 echo 
 cat /etc/issue #check distro
 echo
@@ -29,6 +37,7 @@ echo
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e system tools "${YELOW}[system]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
+echo -e office tools "${YELOW}[0]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}"
@@ -74,6 +83,10 @@ case $yn in
              echo -e openssh-server "${YELOW}[sshserver]${ENDCOLOR}";
              echo -e xrdp "${YELOW}[xrdp]${ENDCOLOR}";
              echo ;;
+
+    0 ) echo ;
+        echo -e 7zip "${YELOW}[0001]${ENDCOLOR}";
+        echo ;;
 
     1 ) echo ;
         echo Remember some of the packets will be installed on the active directory;
@@ -212,7 +225,7 @@ case $yn in
            ./teamserver -h
            # Run the teamserver
            sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
-           echo "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
+           echo -e "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
            sleep 5;
            ./teamserver -h;;
 
@@ -226,7 +239,11 @@ case $yn in
     4001 ) git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
-  
+# Popular recuirements
+
+    python- ) echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
+              sudo apt update;
+              sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10 python3-pip;;
 
 # Options
     op ) echo;
@@ -258,13 +275,13 @@ echo ;;
 # Project info
     v ) echo ;
         echo ;
-        echo         ============================; 
-        echo         =___Open_Testing___________=;
-        echo         =__________________________=;
-        echo         =_version_1.4_BETA_________=;
-        echo         =_OS:_Linux_non_Especified_=;
-        echo         =_____AROA-DEV_____________=;
-        echo         ============================;
+        echo         ==============================; 
+        echo         =___Open_Testing_____________=;
+        echo         =____________________________=;
+        echo         =___version_1.4_BETA_________=;
+        echo         =___Dedicated_OS:_Debian_11__=;
+        echo         =___AROA-DEV_________________=;
+        echo         ==============================;
         echo ;
         echo ;;
 
@@ -277,7 +294,6 @@ echo ;;
 # user settings
     newuser ) echo -n "Enter the username: ";
               read new;
-              useradd $new;
               sudo adduser $new ;
               cd / ;
               cd home;
@@ -285,7 +301,6 @@ echo ;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
-                 userdel -r $remuve;
                  sudo deluser $remuve;
                  cd /;
                  cd home;
@@ -301,9 +316,9 @@ echo ;;
 # remote access to system 
 
     sshserver ) sudo apt install openssh-server;
-               sudo systemctl start ssh;
-               sudo systemctl status ssh;
-               sudo systemctl enable ssh;;
+                sudo systemctl start ssh;
+                sudo systemctl status ssh;
+                sudo systemctl enable ssh;;
 
 
     xrdp ) sudo apt install ufw -y;

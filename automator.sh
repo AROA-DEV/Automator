@@ -106,7 +106,7 @@ case $yn in
         echo instaling in:;
         pwd ;
         echo ;
-        echo -e Wifite     "${color} [3001]${ENDCOLOR}";
+        echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
         echo ;;
     
     4 ) echo ;
@@ -114,7 +114,7 @@ case $yn in
         echo installing in:;
         pwd ;
         echo ;
-        echo -e lynis     "${color} [4001]${ENDCOLOR}";
+        echo -e lynis     "${YELOW} [4001]${ENDCOLOR}";
         echo ;;
 
 # office tools
@@ -258,13 +258,13 @@ echo ;;
 # Project info
     v ) echo ;
         echo ;
-        echo         ====================; 
-        echo         =___Open_Testing___=;
-        echo         =__________________=;
-        echo         =_version_1.4_BETA_=;
-        echo         =___OS:_Debian_11__=;
-        echo         =_____AROA-DEV_____=;
-        echo         ====================;
+        echo         ============================; 
+        echo         =___Open_Testing___________=;
+        echo         =__________________________=;
+        echo         =_version_1.4_BETA_________=;
+        echo         =_OS:_Linux_non_Especified_=;
+        echo         =_____AROA-DEV_____________=;
+        echo         ============================;
         echo ;
         echo ;;
 
@@ -278,7 +278,10 @@ echo ;;
     newuser ) echo -n "Enter the username: ";
               read new;
               useradd $new;
-              sudo adduser $new ;;
+              sudo adduser $new ;
+              cd / ;
+              cd home;
+              mkdir $new;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
