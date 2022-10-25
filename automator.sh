@@ -29,6 +29,7 @@ echo
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e system tools "${YELOW}[system]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
+echo -e office tools "${YELOW}[0]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}"
@@ -74,6 +75,10 @@ case $yn in
              echo -e openssh-server "${YELOW}[sshserver]${ENDCOLOR}";
              echo -e xrdp "${YELOW}[xrdp]${ENDCOLOR}";
              echo ;;
+
+    0 ) echo ;
+        echo -e 7zip "${YELOW}[0001]${ENDCOLOR}";
+        echo ;;
 
     1 ) echo ;
         echo Remember some of the packets will be installed on the active directory;
