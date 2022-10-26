@@ -35,6 +35,9 @@ tested os: Debian 11,
 
 # and automated install for tools:
 
+- Office tools:
+ - 7zip
+
 - Osint tools:
   - Osintgram
   - Recon-ng
