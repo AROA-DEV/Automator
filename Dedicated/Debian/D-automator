@@ -24,6 +24,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
+
 if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
 then
     echo -
@@ -32,6 +33,7 @@ else
     echo -e "${RED} These is the dedicated automator version for Debian 11, if used in an other distro things may not work ${ENDCOLOR}"
     echo
 fi
+
 echo 
 cat /etc/issue #check distro
 echo

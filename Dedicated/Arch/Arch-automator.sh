@@ -24,16 +24,14 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
-
 if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
 then
     echo -
 else
     echo
-    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in an other distro things may not work ${ENDCOLOR}"
+    echo -e "${RED} These is the dedicated automator version for Arch, if used in an other distro things may not work ${ENDCOLOR}"
     echo
 fi
-
 echo 
 cat /etc/issue #check distro
 echo
@@ -136,7 +134,14 @@ case $yn in
 
 # office tools
 
-    0001 ) sudo apt install p7zip-full;;
+    0001 ) echo installing snapd ;
+           sleep 5;
+           git clone https://aur.archlinux.org/snapd.git;
+           cd snapd;
+           makepkg -si;
+           sudo systemctl enable --now snapd.socket;
+           sudo ln -s /var/lib/snapd/snap /snap;
+           sudo snap install p7zip-desktop;;
     
 
 # OSINT options
@@ -283,7 +288,7 @@ echo ;;
         echo         =___Open_Testing_____________=;
         echo         =____________________________=;
         echo         =___version_1.4_BETA_________=;
-        echo         =___Dedicated_OS:_Debian_11__=;
+        echo         =___Dedicated_OS:_Arch_______=;
         echo         =___AROA-DEV_________________=;
         echo         ==============================;
         echo ;
@@ -298,17 +303,16 @@ echo ;;
 # user settings
     newuser ) echo -n "Enter the username: ";
               read new;
-              sudo adduser $new ;
+              useradd --create-home $new ;
+              echo give $new a password
+              passwd ostechnix ;
               cd / ;
               cd home;
               mkdir $new;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
-                 sudo deluser $remuve;
-                 cd /;
-                 cd home;
-                 rm -rf $remuve;;
+                 userdel killall -ru $remuve;;
 
 # Network check
     ip ) ip addr;;
@@ -319,7 +323,7 @@ echo ;;
 
 # remote access to system 
 
-    sshserver ) sudo apt install openssh-server;
+    sshserver ) sudo pacman -S openssh;
                 sudo systemctl start ssh;
                 sudo systemctl status ssh;
                 sudo systemctl enable ssh;;
@@ -351,21 +355,23 @@ echo ;;
                   # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
                   chmod +x automator-update;
                   cd /;
-                  apt update -y && apt upgrade -y;
-                  apt install -y git;
-                  apt install -y python;
-                  apt install -y python3;
-                  apt install -y python3-pip;
-                  apt install -y curl;
-                  apt-get install -y wget;
-                  apt-get install -y nmon;
-                  apt install -y neofetch;
-                  apt update -y && apt upgrade -y;
+                  sudo pacman -Syyu;
+                  pacman sudo;
+                  pacman -S git;
+                  pacman install -y python;
+                  pacman install -y python3;
+                  pacman install -y python3-pip;
+                  pacman install -y curl;
+                  pacman install -y wget;
+                  pacman install -y nmon;
+                  pacman install -y neofetch;
+                  pacman update -y && apt upgrade -y;
                   echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
                   sleep 10;
+                  reboot;
                   systemctl reboot -i ;;
 
-    update ) apt update -y && apt upgrade -y;;
+    update ) sudo pacman -Syyu;;
 
 # invalid option (keep last)    
     * ) echo invalid response run [help] ;;    
