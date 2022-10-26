@@ -335,24 +335,23 @@ echo ;;
 
 
 # power
-    sreboot ) reboot;
-              systemctl reboot;;
+    sreboot ) systemctl reboot;;
         
-    sshutdown ) shutdown;
-                systemctl shutdown;;
+    sshutdown ) systemctl shutdown;;
 
 # full system set up
 
     systemsetup ) apt install sudo;
                   cd /;
                   cd bin;
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator; # change link when pass to release version;
-                   #wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator; # change link when pass to release version;
+                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator;
+                  mv D-automator automator;
                   chmod +x automator;
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update; # change link when pass to release version;
-                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
+                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator-update; # change link when pass to release version;
+                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator-update;
+                  mv D-automator-update automator-update;
                   chmod +x automator-update;
-                  cd /;
                   apt update -y && apt upgrade -y;
                   apt install -y git;
                   apt install -y python;
@@ -365,7 +364,6 @@ echo ;;
                   apt update -y && apt upgrade -y;
                   echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
                   sleep 10;
-                  reboot;
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;
