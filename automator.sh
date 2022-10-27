@@ -238,6 +238,7 @@ case $yn in
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e system tools "${YELOW}[system]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e office tools "${YELOW}[0]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}";
@@ -250,6 +251,7 @@ echo ;;
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e system tools "${YELOW}[system]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e office tools "${YELOW}[0]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}";
