@@ -112,6 +112,7 @@ case $yn in
         pwd ;
         echo ;
         echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
+        echo -e Wireshark  "${YELOW} [3002]${ENDCOLOR}";
         echo ;;
     
     4 ) echo ;
@@ -226,6 +227,8 @@ case $yn in
            cd wifite2 ;
            sudo ./Wifite.py ;
            sudo python setup.py install;;
+
+    3002 ) sudo apt install wireshark -y;;
 
 # vulnerability detection
     4001 ) git clone https://github.com/CISOfy/lynis;
