@@ -54,9 +54,13 @@ tested os: Debian 11,
 
 - Wireles tools:
   - wifite2
+  - wireshark
 
 - vulnerability detection tools:
    - lynis
+   
+- Anty Virus
+   - ClamAV
 
 </p>
 </details>
