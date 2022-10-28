@@ -10,8 +10,8 @@ fi
 cd / 
 cd bin
 rm automator
-wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator # change link when pass to release version ->;
-# wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator
+#wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator # change link when pass to release version ->;
+ wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator
 mv D-automator automator
 chmod +x automator
 
