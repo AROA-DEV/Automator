@@ -46,6 +46,9 @@ echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
+echo 
+echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}"
+echo 
 echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
@@ -134,6 +137,8 @@ case $yn in
         echo ;
         echo -e lynis     "${YELOW} [4001]${ENDCOLOR}";
         echo ;;
+
+    AV ) echo -e ClamAV/ClamTk "${YELOW} [AV01]${ENDCOLOR}";;
 
 # office tools
 
@@ -246,6 +251,10 @@ case $yn in
     4001 ) git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
+# Anty Virus
+
+    AV01 ) sudo apt install clamav clamtk;;
+
 # Popular recuirements
 
     python- ) echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
@@ -257,10 +266,14 @@ case $yn in
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e system tools "${YELOW}[system]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e office tools "${YELOW}[0]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
+echo ;
+echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}";
+echo ;
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";
 echo ;;
@@ -269,10 +282,14 @@ echo ;;
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e system tools "${YELOW}[system]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e office tools "${YELOW}[0]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
+echo ;
+echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}";
+echo ;
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";
 echo ;;
