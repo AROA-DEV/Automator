@@ -29,10 +29,14 @@ echo
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e system tools "${YELOW}[system]${ENDCOLOR}"
 echo -e update "${YELOW}[update]${ENDCOLOR}"
+echo -e office tools "${YELOW}[0]${ENDCOLOR}"
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}"
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}"
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
+echo 
+echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}"
+echo
 echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
@@ -75,6 +79,10 @@ case $yn in
              echo -e xrdp "${YELOW}[xrdp]${ENDCOLOR}";
              echo ;;
 
+    0 ) echo ;
+        echo -e 7zip "${YELOW}[0001]${ENDCOLOR}";
+        echo ;;
+
     1 ) echo ;
         echo Remember some of the packets will be installed on the active directory;
         echo installing in:;
@@ -106,7 +114,8 @@ case $yn in
         echo instaling in:;
         pwd ;
         echo ;
-        echo -e Wifite     "${color} [3001]${ENDCOLOR}";
+        echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
+        echo -e Wireshark  "${YELOW} [3002]${ENDCOLOR}";
         echo ;;
     
     4 ) echo ;
@@ -114,8 +123,10 @@ case $yn in
         echo installing in:;
         pwd ;
         echo ;
-        echo -e lynis     "${color} [4001]${ENDCOLOR}";
+        echo -e lynis     "${YELOW} [4001]${ENDCOLOR}";
         echo ;;
+
+    AV ) echo -e ClamAV/ClamTk "${YELOW} [AV01]${ENDCOLOR}";;
 
 # office tools
 
@@ -199,11 +210,13 @@ case $yn in
     
     2006 ) echo installing Havoc Team server;
            sleep 5;
+           git clone https://github.com/HavocFramework/Havoc.git;
            cd Havoc/Teamserver;
            go mod download golang.org/x/sys;
            go mod download github.com/ugorji/go;
            cd Teamserver
            # Install MUSL C Compiler
+           chmod +x ./Install.sh
            ./Install.sh
            # Build Binary
            make
@@ -220,21 +233,29 @@ case $yn in
            sudo ./Wifite.py ;
            sudo python setup.py install;;
 
+    3002 ) sudo apt install wireshark -y;;
+
 # vulnerability detection
     4001 ) git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
-  
+# Anty Virus
+
+    AV01 ) sudo apt install clamav clamtk;;
 
 # Options
     op ) echo;
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e system tools "${YELOW}[system]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e office tools "${YELOW}[0]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
+echo ;
+echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}";
+echo ;
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";
 echo ;;
@@ -243,10 +264,14 @@ echo ;;
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
 echo -e system tools "${YELOW}[system]${ENDCOLOR}";
 echo -e update "${YELOW}[update]${ENDCOLOR}";
+echo -e office tools "${YELOW}[0]${ENDCOLOR}";
 echo -e install Osint tools "${YELOW}[1]${ENDCOLOR}";
 echo -e install Exploit tools "${YELOW}[2]${ENDCOLOR}";
 echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}";
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}";
+echo ;
+echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}";
+echo ;
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";
 echo ;;
@@ -256,13 +281,13 @@ echo ;;
 # Project info
     v ) echo ;
         echo ;
-        echo         ====================; 
-        echo         =___Open_Testing___=;
-        echo         =__________________=;
-        echo         =_version_1.3______=;
-        echo         =___OS:_Debian_11__=;
-        echo         =_____AROA-DEV_____=;
-        echo         ====================;
+        echo         ============================; 
+        echo         =___Open_Testing___________=;
+        echo         =__________________________=;
+        echo         =_version_1.4______________=;
+        echo         =_OS:_Linux_non_Especified_=;
+        echo         =_____AROA-DEV_____________=;
+        echo         ============================;
         echo ;
         echo ;;
 
@@ -276,7 +301,10 @@ echo ;;
     newuser ) echo -n "Enter the username: ";
               read new;
               useradd $new;
-              sudo adduser $new ;;
+              sudo adduser $new ;
+              cd / ;
+              cd home;
+              mkdir $new;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;

@@ -14,6 +14,8 @@ echo ██╔══██║██║___██║___██║___██║___█
 echo ██║__██║╚██████╔╝___██║___╚██████╔╝██║_╚═╝_██║██║__██║___██║___╚██████╔╝██║__██║
 echo ╚═╝__╚═╝ ╚═════╝____╚═╝____╚═════╝ ╚═╝_____╚═╝╚═╝__╚═╝___╚═╝____╚═════╝_╚═╝__╚═╝
 echo 
+echo Dedicated version for Debian 11
+echo
 uptime
 who
 echo
@@ -22,9 +24,16 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
+if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
+then
+    echo -
+else
+    echo
+    echo -e "${RED} These is the dedicated automator version for Arch, if used in an other distro things may not work ${ENDCOLOR}"
+    echo
+fi
 echo 
 cat /etc/issue #check distro
-echo
 echo
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}"
 echo -e system tools "${YELOW}[system]${ENDCOLOR}"
@@ -36,7 +45,7 @@ echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
 echo 
 echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}"
-echo
+echo 
 echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
@@ -115,7 +124,6 @@ case $yn in
         pwd ;
         echo ;
         echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
-        echo -e Wireshark  "${YELOW} [3002]${ENDCOLOR}";
         echo ;;
     
     4 ) echo ;
@@ -130,7 +138,14 @@ case $yn in
 
 # office tools
 
-    0001 ) sudo apt install p7zip-full;;
+    0001 ) echo installing snapd ;
+           sleep 5;
+           git clone https://aur.archlinux.org/snapd.git;
+           cd snapd;
+           makepkg -si;
+           sudo systemctl enable --now snapd.socket;
+           sudo ln -s /var/lib/snapd/snap /snap;
+           sudo snap install p7zip-desktop;;
     
 
 # OSINT options
@@ -223,7 +238,7 @@ case $yn in
            ./teamserver -h
            # Run the teamserver
            sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
-           echo "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
+           echo -e "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
            sleep 5;
            ./teamserver -h;;
 
@@ -233,15 +248,19 @@ case $yn in
            sudo ./Wifite.py ;
            sudo python setup.py install;;
 
-    3002 ) sudo apt install wireshark -y;;
-
 # vulnerability detection
     4001 ) git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
 # Anty Virus
 
-    AV01 ) sudo apt install clamav clamtk;;
+    AV01 ) sudo pacman -S clamav clamtk;;
+
+# Popular recuirements
+
+    python- ) echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
+              sudo apt update;
+              sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10 python3-pip;;
 
 # Options
     op ) echo;
@@ -259,6 +278,7 @@ echo ;
 echo -e show options "${YELOW}[op]${ENDCOLOR}";
 echo -e show version "${YELOW}[v]${ENDCOLOR}";
 echo ;;
+
 
     help )  echo;
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}";
@@ -278,16 +298,17 @@ echo ;;
 
 
 
+
 # Project info
     v ) echo ;
         echo ;
-        echo         ============================; 
-        echo         =___Open_Testing___________=;
-        echo         =__________________________=;
-        echo         =_version_1.4______________=;
-        echo         =_OS:_Linux_non_Especified_=;
-        echo         =_____AROA-DEV_____________=;
-        echo         ============================;
+        echo         ==============================; 
+        echo         =___Open_Testing_____________=;
+        echo         =____________________________=;
+        echo         =___version_1.4______________=;
+        echo         =___Dedicated_OS:_Arch_______=;
+        echo         =___AROA-DEV_________________=;
+        echo         ==============================;
         echo ;
         echo ;;
 
@@ -300,19 +321,16 @@ echo ;;
 # user settings
     newuser ) echo -n "Enter the username: ";
               read new;
-              useradd $new;
-              sudo adduser $new ;
+              useradd --create-home $new ;
+              echo give $new a password
+              passwd ostechnix ;
               cd / ;
               cd home;
               mkdir $new;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
-                 userdel -r $remuve;
-                 sudo deluser $remuve;
-                 cd /;
-                 cd home;
-                 rm -rf $remuve;;
+                 userdel killall -ru $remuve;;
 
 # Network check
     ip ) ip addr;;
@@ -323,10 +341,10 @@ echo ;;
 
 # remote access to system 
 
-    sshserver ) sudo apt install openssh-server;
-               sudo systemctl start ssh;
-               sudo systemctl status ssh;
-               sudo systemctl enable ssh;;
+    sshserver ) sudo pacman -S openssh;
+                sudo systemctl start ssh;
+                sudo systemctl status ssh;
+                sudo systemctl enable ssh;;
 
 
     xrdp ) sudo apt install ufw -y;
@@ -339,40 +357,41 @@ echo ;;
 
 
 # power
-    sreboot ) reboot;
-              systemctl reboot;;
+    sreboot ) systemctl reboot;;
         
-    sshutdown ) shutdown;
-                systemctl shutdown;;
+    sshutdown ) systemctl shutdown;;
 
 # full system set up
 
     systemsetup ) apt install sudo;
                   cd /;
                   cd bin;
-                  #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator; # change link when pass to release version;
-                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
+                  #https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Arch/Arch-automator; # change link when pass to release version;
+                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Arch/Arch-automator;
+                  mv Arch-automator automator;
                   chmod +x automator;
-                  #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update; # change link when pass to release version;
-                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
+                  #https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Arch/Arch-automator.sh; # change link when pass to release version;
+                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Arch/Arch-automator.sh;
+                  mv Arch-automator-update automator-update;
                   chmod +x automator-update;
                   cd /;
-                  apt update -y && apt upgrade -y;
-                  apt install -y git;
-                  apt install -y python;
-                  apt install -y python3;
-                  apt install -y python3-pip;
-                  apt install -y curl;
-                  apt-get install -y wget;
-                  apt-get install -y nmon;
-                  apt install -y neofetch;
-                  apt update -y && apt upgrade -y;
+                  sudo pacman -Syyu;
+                  pacman sudo;
+                  pacman -S git;
+                  pacman install -y python;
+                  pacman install -y python3;
+                  pacman install -y python3-pip;
+                  pacman install -y curl;
+                  pacman install -y wget;
+                  pacman install -y nmon;
+                  pacman install -y neofetch;
+                  pacman update -y && apt upgrade -y;
                   echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
                   sleep 10;
                   reboot;
                   systemctl reboot -i ;;
 
-    update ) apt update -y && apt upgrade -y;;
+    update ) sudo pacman -Syyu;;
 
 # invalid option (keep last)    
     * ) echo invalid response run [help] ;;    

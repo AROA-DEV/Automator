@@ -35,6 +35,9 @@ tested os: Debian 11,
 
 # and automated install for tools:
 
+- Office tools:
+ - 7zip
+
 - Osint tools:
   - Osintgram
   - Recon-ng
@@ -51,9 +54,13 @@ tested os: Debian 11,
 
 - Wireles tools:
   - wifite2
+  - wireshark
 
 - vulnerability detection tools:
    - lynis
+   
+- Anty Virus
+   - ClamAV
 
 </p>
 </details>

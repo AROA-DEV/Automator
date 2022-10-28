@@ -14,6 +14,8 @@ echo ██╔══██║██║___██║___██║___██║___█
 echo ██║__██║╚██████╔╝___██║___╚██████╔╝██║_╚═╝_██║██║__██║___██║___╚██████╔╝██║__██║
 echo ╚═╝__╚═╝ ╚═════╝____╚═╝____╚═════╝ ╚═╝_____╚═╝╚═╝__╚═╝___╚═╝____╚═════╝_╚═╝__╚═╝
 echo 
+echo Dedicated version for Debian 11
+echo
 uptime
 who
 echo
@@ -22,6 +24,16 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
+
+if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
+then
+    echo -
+else
+    echo
+    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in an other distro things may not work ${ENDCOLOR}"
+    echo
+fi
+
 echo 
 cat /etc/issue #check distro
 echo
@@ -36,7 +48,7 @@ echo -e install Wireless tools "${YELOW}[3]${ENDCOLOR}"
 echo -e install vulnerability detection tools "${YELOW}[4]${ENDCOLOR}"
 echo 
 echo -e install Anty virus "${YELOW}[AV]${ENDCOLOR}"
-echo
+echo 
 echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
@@ -223,7 +235,7 @@ case $yn in
            ./teamserver -h
            # Run the teamserver
            sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
-           echo "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
+           echo -e "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
            sleep 5;
            ./teamserver -h;;
 
@@ -242,6 +254,12 @@ case $yn in
 # Anty Virus
 
     AV01 ) sudo apt install clamav clamtk;;
+
+# Popular recuirements
+
+    python- ) echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
+              sudo apt update;
+              sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10 python3-pip;;
 
 # Options
     op ) echo;
@@ -281,13 +299,13 @@ echo ;;
 # Project info
     v ) echo ;
         echo ;
-        echo         ============================; 
-        echo         =___Open_Testing___________=;
-        echo         =__________________________=;
-        echo         =_version_1.4______________=;
-        echo         =_OS:_Linux_non_Especified_=;
-        echo         =_____AROA-DEV_____________=;
-        echo         ============================;
+        echo         ==============================; 
+        echo         =___Open_Testing_____________=;
+        echo         =____________________________=;
+        echo         =___version_1.4______________=;
+        echo         =___Dedicated_OS:_Debian_11__=;
+        echo         =___AROA-DEV_________________=;
+        echo         ==============================;
         echo ;
         echo ;;
 
@@ -300,7 +318,6 @@ echo ;;
 # user settings
     newuser ) echo -n "Enter the username: ";
               read new;
-              useradd $new;
               sudo adduser $new ;
               cd / ;
               cd home;
@@ -308,7 +325,6 @@ echo ;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
-                 userdel -r $remuve;
                  sudo deluser $remuve;
                  cd /;
                  cd home;
@@ -324,9 +340,9 @@ echo ;;
 # remote access to system 
 
     sshserver ) sudo apt install openssh-server;
-               sudo systemctl start ssh;
-               sudo systemctl status ssh;
-               sudo systemctl enable ssh;;
+                sudo systemctl start ssh;
+                sudo systemctl status ssh;
+                sudo systemctl enable ssh;;
 
 
     xrdp ) sudo apt install ufw -y;
@@ -339,24 +355,23 @@ echo ;;
 
 
 # power
-    sreboot ) reboot;
-              systemctl reboot;;
+    sreboot ) systemctl reboot;;
         
-    sshutdown ) shutdown;
-                systemctl shutdown;;
+    sshutdown ) systemctl shutdown;;
 
 # full system set up
 
     systemsetup ) apt install sudo;
                   cd /;
                   cd bin;
-                  #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator; # change link when pass to release version;
-                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
+                  #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator; # change link when pass to release version;
+                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator;
+                  mv D-automator automator;
                   chmod +x automator;
-                  #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update; # change link when pass to release version;
-                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update;
+                  #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator-update; # change link when pass to release version;
+                   wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator-update;
+                  mv D-automator-update automator-update;
                   chmod +x automator-update;
-                  cd /;
                   apt update -y && apt upgrade -y;
                   apt install -y git;
                   apt install -y python;
@@ -369,7 +384,6 @@ echo ;;
                   apt update -y && apt upgrade -y;
                   echo -e "${RED} Will reboot in 10s pres [ctrl + c] ${ENDCOLOR}";
                   sleep 10;
-                  reboot;
                   systemctl reboot -i ;;
 
     update ) apt update -y && apt upgrade -y;;
