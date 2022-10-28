@@ -284,7 +284,7 @@ echo ;;
         echo         ============================; 
         echo         =___Open_Testing___________=;
         echo         =__________________________=;
-        echo         =_version_1.4_BETA_________=;
+        echo         =_version_1.4______________=;
         echo         =_OS:_Linux_non_Especified_=;
         echo         =_____AROA-DEV_____________=;
         echo         ============================;
