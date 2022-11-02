@@ -2,6 +2,7 @@
 automated set up
 
 Get automator
+> :warning: These are made and tested for Debian11 somethings may work on other distros using the apt package manager (Dedicated scripts are coming)
 ````
  wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator.sh
 ````
@@ -17,8 +18,19 @@ run automator
 ````
  ./automator.sh
 ````
-
 run "systemsetup" to be able to run it from any location
+
+## The automated setup (:warning: Concept :warning:)
+````
+wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Assets/Automatorsetup.sh
+````
+
+````
+chmod +x Automatorsetup.sh
+````
+````
+./Automatorsetup.sh
+````
 
 tested os: Debian 11,
 <details><summary>Features</summary>
