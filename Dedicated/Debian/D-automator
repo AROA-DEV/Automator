@@ -30,7 +30,7 @@ then
     echo -
 else
     echo
-    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in an other distro things may not work ${ENDCOLOR}"
+    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in another distro things may not work ${ENDCOLOR}"
     echo
 fi
 
@@ -122,7 +122,7 @@ case $yn in
         echo ;;
 
     3 ) echo ;
-        echo Remember some of the pakets will be installed onthe active directory;
+        echo Remember some of the packets will be installed on the active directory;
         echo instaling in:;
         pwd ;
         echo ;
@@ -323,7 +323,7 @@ echo ;;
               cd home;
               mkdir $new;;
 
-    remuveuser ) echo -n "Enter the username that you whant to remuve: ";
+    remuveuser ) echo -n "Enter the username that you want to remove: ";
                  read remuve;
                  sudo deluser $remuve;
                  cd /;

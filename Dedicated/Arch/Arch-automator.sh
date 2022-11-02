@@ -29,7 +29,7 @@ then
     echo -
 else
     echo
-    echo -e "${RED} These is the dedicated automator version for Arch, if used in an other distro things may not work ${ENDCOLOR}"
+    echo -e "${RED} These is the dedicated automator version for Arch, if used in another distro things may not work ${ENDCOLOR}"
     echo
 fi
 echo 
@@ -119,8 +119,8 @@ case $yn in
         echo ;;
 
     3 ) echo ;
-        echo Remember some of the pakets will be installed onthe active directory;
-        echo instaling in:;
+        echo Remember some of the packets will be installed on the active directory;
+        echo installing in:;
         pwd ;
         echo ;
         echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
@@ -328,7 +328,7 @@ echo ;;
               cd home;
               mkdir $new;;
 
-    remuveuser ) echo -n "Enter the username that you whant to remuve: ";
+    remuveuser ) echo -n "Enter the username that you want to remove: ";
                  read remuve;
                  userdel killall -ru $remuve;;
 

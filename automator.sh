@@ -61,7 +61,7 @@ case $yn in
 
     user ) echo ;
            echo -e new user "${YELOW}[newuser]${ENDCOLOR}";
-           echo -e remuve user "${YELOW}[remuveuser]${ENDCOLOR}";
+           echo -e remove user "${YELOW}[remuveuser]${ENDCOLOR}";
            echo ;;
 
     network ) echo ;
@@ -110,8 +110,8 @@ case $yn in
         echo ;;
 
     3 ) echo ;
-        echo Remember some of the pakets will be installed onthe active directory;
-        echo instaling in:;
+        echo Remember some of the packets will be installed on the active directory;
+        echo installing in:;
         pwd ;
         echo ;
         echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
@@ -227,7 +227,7 @@ case $yn in
            sleep 5;
            ./teamserver -h;;
 
-# Wireles atcks
+# Wireless attacks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
            cd wifite2 ;
            sudo ./Wifite.py ;
@@ -306,7 +306,7 @@ echo ;;
               cd home;
               mkdir $new;;
 
-    remuveuser ) echo -n "Enter the username that you whant to remuve: ";
+    remuveuser ) echo -n "Enter the username that you want to remove: ";
                  read remuve;
                  userdel -r $remuve;
                  sudo deluser $remuve;
