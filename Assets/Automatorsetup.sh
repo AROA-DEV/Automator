@@ -5,6 +5,11 @@ YELOW="\e[33m"
 BLUE="\e[34m"
 ENDCOLOR="\e[0m";
 
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo -e "${RED}!!! run as root !!!${ENDCOLOR}"
+    exit
+fi
+
 handleDebian() {
     echo "instaling dedicated Debian Variant"
     cd /
