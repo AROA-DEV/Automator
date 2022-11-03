@@ -11,7 +11,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 
 handleDebian() {
-    echo "instaling dedicated Debian Variant"
+    echo "installing dedicated Debian Variant"
     cd /
     cd bin
     wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator
@@ -29,11 +29,22 @@ handleUbuntu() {
 }
 
 handleKali() {
-    echo "Using Kali"
+    echo "installing dedicated Kali"
+    cd /
+    cd bin
+    wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Kali/K-automator # change link when pass to release version;
+    # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Kali/K-automator 
+    mv K-automator automator
+    chmod +x automator
+    wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Kali/K-automator-update # change link when pass to release version;
+    # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Kali/K-automator-update
+    mv K-automator-update automator-update
+    chmod +x automator-update
+    exit
 }
 
 handleArch() {
-    echo "instalinh dedicated Arch Variant"
+    echo "installing dedicated Arch Variant"
     cd /
     cd bin
     wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Arch/Arch-automator; # change link when pass to release version;
@@ -55,7 +66,7 @@ read distro </etc/issue
 case "${distro}" in
     *Debian* )   handleDebian;;
     *Ubuntu* )   handleUbuntu;;
-    *kali* )     handleKali;;
+    *Kali* )     handleKali;;
     *Arch* )     handleArch;;
     *)           handleUnkown;;
 esac
