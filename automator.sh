@@ -225,7 +225,7 @@ case $yn in
            sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
            echo "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
            sleep 5;
-           ./teamserver -h;;
+           ./teamserver server --profile profiles/havoc.yaotl;;
 
 # Wireless attacks
     3001 ) git clone https://github.com/derv82/wifite2.git ;

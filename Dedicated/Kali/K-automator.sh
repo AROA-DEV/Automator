@@ -237,7 +237,7 @@ case $yn in
            sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
            echo -e "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
            sleep 5;
-           ./teamserver -h;;
+           ./teamserver server --profile profiles/havoc.yaotl;;
 
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
@@ -303,7 +303,7 @@ echo ;;
         echo         =___Open_Testing_____________=;
         echo         =____________________________=;
         echo         =___version_1.5_BETA_________=;
-        echo         =___Dedicated_OS:_Debian_11__=;
+        echo         =___Dedicated_OS:_Kali_______=;
         echo         =___AROA-DEV_________________=;
         echo         ==============================;
         echo ;
