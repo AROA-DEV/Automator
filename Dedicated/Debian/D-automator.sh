@@ -25,7 +25,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     sleep 5
 fi
 
-if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
+if [[ "$distro" = "Debian" ]];
 then
     echo -
 else
