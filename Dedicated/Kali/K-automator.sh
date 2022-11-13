@@ -30,7 +30,7 @@ then
     echo -
 else
     echo
-    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in another distro things may not work ${ENDCOLOR}"
+    echo -e "${RED} These is the dedicated automator version for Kali, if used in another distro things may not work ${ENDCOLOR}"
     echo
 fi
 
