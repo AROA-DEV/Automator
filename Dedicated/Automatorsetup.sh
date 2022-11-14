@@ -25,7 +25,18 @@ handleDebian() {
 }
 
 handleUbuntu() {
-    echo "Using Ubuntu"
+    echo "Ubuntu variant is not available"
+    # echo "installing dedicated Debian Variant"
+    # cd /
+    # cd bin
+    # 3wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator
+    # mv D-automator automator
+    # chmod +x automator
+    # wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator-update # change link when pass to release version;
+    # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator-update
+    # mv D-automator-update automator-update
+    # chmod +x automator-update
+    # exit
 }
 
 handleKali() {
