@@ -249,7 +249,48 @@ case $yn in
     3001 ) git clone https://github.com/derv82/wifite2.git ;
            cd wifite2 ;
            sudo ./Wifite.py ;
-           sudo python setup.py install;;
+           sudo python setup.py install;
+           cd ..
+           apt-get install wireless-tools;
+apt-get install net-tools;
+sudo apt -y install build-essential libpcap-dev aircrack-ng pixiewps;
+# Reaver install;
+git clone https://github.com/t6x/reaver-wps-fork-t6x;
+cd reaver-wps-fork-t6x*;
+cd src./configure;
+make;
+sudo make install;
+cd ..
+cd ..
+# Bully install
+apt-get -y install build-essential libpcap-dev aircrack-ng pixiewps;
+git clone https://github.com/aanarchyy/bully;
+cd bully*/;
+cd src/;
+make;
+sudo make install;
+cd ..
+cd ..
+# Pyrit install;
+apt-get install pyrit;
+# wireshark install
+apt-get install wireshark;
+# Hash cat install
+apt install hashcat
+# hcxdumptool install
+git clone https://github.com/ZerBea/hcxdumptool.git;
+cd hcxdumptool;
+sudo apt-get install libcurl4-openssl-dev libssl-dev pkg-config;
+make;
+make install;
+# hcxtools install
+git clone https://github.com/ZerBea/hcxtools.git;
+cd hcxtools;
+make;
+make install;
+# macchanger
+apt-get install macchanger;
+apt update -y  && apt upgrade -y;;
 
     3002 ) sudo apt install wireshark -y;;
 
