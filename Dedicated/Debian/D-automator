@@ -276,18 +276,20 @@ apt-get install pyrit;
 # wireshark install
 apt-get install wireshark;
 # Hash cat install
-apt install hashcat
+apt install hashcat;
 # hcxdumptool install
 git clone https://github.com/ZerBea/hcxdumptool.git;
 cd hcxdumptool;
 sudo apt-get install libcurl4-openssl-dev libssl-dev pkg-config;
 make;
 make install;
+cd ..;
 # hcxtools install
 git clone https://github.com/ZerBea/hcxtools.git;
 cd hcxtools;
 make;
 make install;
+cd ..;
 # macchanger
 apt-get install macchanger;
 apt update -y  && apt upgrade -y;;
