@@ -22,6 +22,15 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
+read distro </etc/issue
+if [[ "$distro" = "Debian" ]];
+then
+    echo -
+else
+    echo
+    echo -e "${RED} These is the dedicated automator version was tested on Debian 11, if used in another distro things may not work ${ENDCOLOR}"
+    echo
+fi
 echo 
 cat /etc/issue #check distro
 echo

@@ -23,6 +23,15 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     sleep 5
 fi
 echo 
+read distro </etc/issue
+if [[ "$distro" = "Ubuntu" ]];
+then
+    echo -
+else
+    echo
+    echo -e "${RED} These is the dedicated automator version for Ubuntu, if used in another distro things may not work ${ENDCOLOR}"
+    echo
+fi
 cat /etc/issue #check distro
 echo
 echo

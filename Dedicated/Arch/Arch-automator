@@ -24,7 +24,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
-if [[ "$distro" = "Debian GNU/Linux bookworm/sid n l" ]];
+if [[ "$distro" = "Arch" ]];
 then
     echo -
 else

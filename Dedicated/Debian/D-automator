@@ -24,7 +24,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
-
+read distro </etc/issue
 if [[ "$distro" = "Debian" ]];
 then
     echo -
