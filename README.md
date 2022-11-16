@@ -22,7 +22,7 @@ run "systemsetup" to be able to run it from any location
 
 ## The automated setup (:warning: Concept :warning:)
 ````
-wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Assets/Automatorsetup.sh
+wget https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Automatorsetup.sh
 ````
 
 ````
