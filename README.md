@@ -1,5 +1,4 @@
-# automator
-automated set up
+# automator Beta
 
 Get automator
 > :warning: These are made and tested for Debian11 somethings may work on other distros using the apt package manager (Dedicated scripts are coming)
