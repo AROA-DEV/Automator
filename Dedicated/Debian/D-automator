@@ -93,6 +93,7 @@ case $yn in
 
     0 ) echo ;
         echo -e 7zip "${YELOW}[0001]${ENDCOLOR}";
+        echo -e VS code "${YELOW}[0002]${ENDCOLOR}";
         echo ;;
 
     1 ) echo ;
@@ -143,8 +144,10 @@ case $yn in
 # office tools
 
     0001 ) sudo apt install p7zip-full;;
-    
 
+    0002 ) wget https://az764295.vo.msecnd.net/stable/6261075646f055b99068d3688932416f2346dd3b/code_1.73.1-1667967334_amd64.deb;
+           apt install ./code_1.73.1-1667967334_amd64.deb;;
+           
 # OSINT options
 
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
