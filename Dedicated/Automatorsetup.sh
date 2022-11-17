@@ -70,7 +70,16 @@ handleArch() {
 }
 
 handleUnknown() {
-   echo "No suported OS detected some thing may not work"
+   echo "No suported OS detected, Installing for debian based system some thing may not work"
+    wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator; # change link when pass to release version;
+    # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
+    mv Arch-automator automator
+    chmod +x automator
+    wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator-update # change link when pass to release version;
+    # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator-update
+    mv Arch-automator-update automator-update
+    chmod +x automator-update
+    exit
 }
 
 read distro </etc/issue
