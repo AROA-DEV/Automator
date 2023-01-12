@@ -70,7 +70,7 @@ handleArch() {
 }
 
 handleUnknown() {
-   echo "No suported OS detected, Installing for debian based system some thing may not work"
+    echo "No suported OS detected, Installing for debian based system some thing may not work"
     wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/automator; # change link when pass to release version;
     # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/automator;
     mv Arch-automator automator

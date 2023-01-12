@@ -34,6 +34,8 @@ else
     echo
 fi
 
+# App dialog 
+
 echo 
 cat /etc/issue #check distro
 echo
@@ -140,6 +142,8 @@ case $yn in
         echo ;;
 
     AV ) echo -e ClamAV/ClamTk "${YELOW} [AV01]${ENDCOLOR}";;
+
+# Dialog for app end
 
 # office tools
 
