@@ -107,6 +107,7 @@ case $yn in
         echo -e phoneinfoga "${YELOW} [1004]${ENDCOLOR}";
         echo -e nmap      "${YELOW} [1005]${ENDCOLOR}";
         echo -e Profil3r   "${YELOW} [1006]${ENDCOLOR}";
+        echo -e Sherlock "${YELLOW}[1007]${ENDCOLOR}";
         echo ;;
 
     2 ) echo ;
@@ -179,6 +180,10 @@ case $yn in
            git clone https://github.com/amitrajputfff/Profil3r.git;
            cd Profil3r/;
            python3 setup.py install;;
+
+        1007 ) git clone https://github.com/sherlock-project/sherlock.git;
+                  cd sherlock;
+                  python3 -m pip install -r requirements.txt;;
 
 
 # Exploit 
