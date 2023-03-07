@@ -107,7 +107,7 @@ case $yn in
         echo -e phoneinfoga "${YELOW} [1004]${ENDCOLOR}";
         echo -e nmap      "${YELOW} [1005]${ENDCOLOR}";
         echo -e Profil3r   "${YELOW} [1006]${ENDCOLOR}";
-        echo -e Sherlock "${YELLOW}[1007]${ENDCOLOR}";
+        echo -e Sherlock "${YELOW}[1007]${ENDCOLOR}";
         echo ;;
 
     2 ) echo ;
