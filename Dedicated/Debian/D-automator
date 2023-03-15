@@ -71,7 +71,9 @@ case $yn in
              echo -e Remote access to the system "${YELOW}[remote]${ENDCOLOR}";
              echo ;;
 
-    user ) echo ;
+    user ) echo ;,
+           echo ;
+           echo -e logout user "${YELOW}[logout]${ENDCOLOR}";
            echo -e new user "${YELOW}[newuser]${ENDCOLOR}";
            echo -e remuve user "${YELOW}[remuveuser]${ENDCOLOR}";
            echo ;;
@@ -255,11 +257,11 @@ case $yn in
 
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
-           cd wifite2 ;
-           sudo ./Wifite.py ;
-           sudo python setup.py install;
-           cd ..
-           apt-get install wireless-tools;
+cd wifite2 ;
+sudo ./Wifite.py ;
+sudo python setup.py install;
+cd ..
+apt-get install wireless-tools;
 apt-get install net-tools;
 sudo apt -y install build-essential libpcap-dev aircrack-ng pixiewps;
 # Reaver install;
@@ -386,6 +388,16 @@ echo ;;
                  cd /;
                  cd home;
                  rm -rf $remuve;;
+    logout ) # Get a list of connected users;
+            users=$(who | awk '{print $1}' | sort | uniq);
+            # Print the list of users;
+            echo "Connected users:";
+            echo "$users";
+            # Ask the user which user to terminate;
+            read -p "Enter the username to terminate all processes: " username;
+            # Terminate all processes of the selected user;
+            pkill -KILL -u "$username";
+            echo "All processes of user $username have been terminated.";;
 
 # Network check
     ip ) ip addr;;
@@ -409,6 +421,7 @@ echo ;;
            sudo systemctl restart xrdp;
            sudo systemctl enable xrdp;
            sudo ufw allow ;;
+
 
 
 # power
