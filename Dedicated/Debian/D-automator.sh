@@ -148,8 +148,17 @@ case $yn in
 
     0001 ) sudo apt install p7zip-full;;
 
-    0002 ) wget https://az764295.vo.msecnd.net/stable/6261075646f055b99068d3688932416f2346dd3b/code_1.73.1-1667967334_amd64.deb;
-           apt install ./code_1.73.1-1667967334_amd64.deb;;
+    0002 ) URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+        curl -L -o vscode.deb $URL
+        sudo apt install ./vscode.deb
+        sudo apt-get install wget gpg;
+        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg;
+        sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg;
+        sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list';
+        rm -f packages.microsoft.gpg;
+        sudo apt install apt-transport-https;
+        sudo apt update;
+        sudo apt install code;; # or code-insiders
            
 # OSINT options
 
