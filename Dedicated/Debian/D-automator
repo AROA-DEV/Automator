@@ -24,7 +24,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
-read distro </etc/issue
+read -r distro </etc/issue
 if [[ "$distro" = "Debian" ]];
 then
     echo -
@@ -53,7 +53,7 @@ echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
 while true; do
-read -p "how do you want to proceed? " yn
+read -p -r "how do you want to proceed? " yn
 
 case $yn in 
 
@@ -71,7 +71,7 @@ case $yn in
              echo -e Remote access to the system "${YELOW}[remote]${ENDCOLOR}";
              echo ;;
 
-    user ) echo ;,
+    user ) echo ;
            echo ;
            echo -e logout user "${YELOW}[logout]${ENDCOLOR}";
            echo -e new user "${YELOW}[newuser]${ENDCOLOR}";
@@ -130,8 +130,8 @@ case $yn in
         echo instaling in:;
         pwd ;
         echo ;
-        echo -e Wifite     "${YELOW} [3001]${ENDCOLOR}";
-        echo -e Wireshark  "${YELOW} [3002]${ENDCOLOR}";
+        echo -e Wifite     "${YELOW}[3001]${ENDCOLOR}";
+        echo -e Wireshark  "${YELOW}[3002]${ENDCOLOR}";
         echo ;;
     
     4 ) echo ;
@@ -139,7 +139,7 @@ case $yn in
         echo installing in:;
         pwd ;
         echo ;
-        echo -e lynis     "${YELOW} [4001]${ENDCOLOR}";
+        echo -e lynis     "${YELOW}[4001]${ENDCOLOR}";
         echo ;;
 
     AV ) echo -e ClamAV/ClamTk "${YELOW} [AV01]${ENDCOLOR}";;
@@ -149,7 +149,7 @@ case $yn in
     0001 ) sudo apt install p7zip-full;;
 
     0002 ) URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-        curl -L -o vscode.deb $URL
+        curl -L -o vscode.deb "$URL"
         sudo apt install ./vscode.deb
         sudo apt-get install wget gpg;
         wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg;
@@ -163,7 +163,7 @@ case $yn in
 # OSINT options
 
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
-           cd Osintgram;
+           cd Osintgram || exit;
            pip3 install -r requirements.txt;
            wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/Osintgram/usage.txt; 
            cd .. ;;
@@ -171,12 +171,12 @@ case $yn in
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
 
     1003 ) git clone https://github.com/m4ll0k/Infoga.git;
-           cd Infoga;
+           cd Infoga || exit;
            python3 setup.py install;
            python3 infoga.py;;
 
     1004 ) mkdir Phoneinfoga ;
-           cd PhoneInfoga ;
+           cd PhoneInfoga || exit ;
            wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/phoneinfoga/usage.txt ;
            curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash ;
            ./phoneinfoga version ;
@@ -189,12 +189,12 @@ case $yn in
 
     1006 ) pip3 install PyInquirer jinja2 bs4;
            git clone https://github.com/amitrajputfff/Profil3r.git;
-           cd Profil3r/;
+           cd Profil3r/ || exit;
            python3 setup.py install;;
 
-        1007 ) git clone https://github.com/sherlock-project/sherlock.git;
-                  cd sherlock;
-                  python3 -m pip install -r requirements.txt;;
+    1007 ) git clone https://github.com/sherlock-project/sherlock.git;
+           cd sherlock || exit;
+           python3 -m pip install -r requirements.txt;;
 
 
 # Exploit 
@@ -204,9 +204,9 @@ case $yn in
            ./msfinstall;;
 
     2002 ) mkdir SEToolkit;
-           cd SEToolkit;
+           cd SEToolkit || exit;
            git clone https://github.com/trustedsec/social-engineer-toolkit setoolkit/;
-           cd setoolkit;
+           cd setoolkit || exit;
            pip3 install -r requirements.txt;
            python setup.py;
            echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
@@ -220,7 +220,7 @@ case $yn in
 
     2004 )  pkg install -y git;
             git clone https://github.com/Cesar-Hack-Gray/SocialSploit;
-            cd SocialSploit;
+            cd SocialSploit || exit;
             ls;
             bash install.sh;
             ./Sploit;;
@@ -234,9 +234,9 @@ case $yn in
            sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10;
            sudo apt update -y && apt upgrade -y;
            git clone https://github.com/HavocFramework/Havoc.git;
-           cd Havoc/Client;
+           cd Havoc/Client || exit;
            make ;
-           cd Havoc/Client;
+           cd Havoc/Client || exit;
            chmod +x Havoc ;
            ./Havoc;;
     
@@ -248,10 +248,10 @@ case $yn in
            sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10;
            sudo apt update -y && apt upgrade -y;
            git clone https://github.com/HavocFramework/Havoc.git;
-           cd Havoc/Teamserver;
+           cd Havoc/Teamserver || exit;
            go mod download golang.org/x/sys;
            go mod download github.com/ugorji/go;
-           cd Teamserver;
+           cd Teamserver || exit;
            # Install MUSL C Compiler
            chmod +x ./Install.sh;
            ./Install.sh;
@@ -266,52 +266,52 @@ case $yn in
 
 # Wireles atcks
     3001 ) git clone https://github.com/derv82/wifite2.git ;
-cd wifite2 ;
-sudo ./Wifite.py ;
-sudo python setup.py install;
-cd ..
-apt-get install wireless-tools;
-apt-get install net-tools;
-sudo apt -y install build-essential libpcap-dev aircrack-ng pixiewps;
-# Reaver install;
-git clone https://github.com/t6x/reaver-wps-fork-t6x;
-cd reaver-wps-fork-t6x*;
-cd src./configure;
-make;
-sudo make install;
-cd ..
-cd ..
-# Bully install
-apt-get -y install build-essential libpcap-dev aircrack-ng pixiewps;
-git clone https://github.com/aanarchyy/bully;
-cd bully*/;
-cd src/;
-make;
-sudo make install;
-cd ..
-cd ..
-# Pyrit install;
-apt-get install pyrit;
-# wireshark install
-apt-get install wireshark;
-# Hash cat install
-apt install hashcat;
-# hcxdumptool install
-git clone https://github.com/ZerBea/hcxdumptool.git;
-cd hcxdumptool;
-sudo apt-get install libcurl4-openssl-dev libssl-dev pkg-config;
-make;
-make install;
-cd ..;
-# hcxtools install
-git clone https://github.com/ZerBea/hcxtools.git;
-cd hcxtools;
-make;
-make install;
-cd ..;
-# macchanger
-apt-get install macchanger;
-apt update -y  && apt upgrade -y;;
+           cd wifite2 || exit ;
+           sudo ./Wifite.py ;
+           sudo python setup.py install;
+           cd ..
+           apt-get install wireless-tools;
+           apt-get install net-tools;
+           sudo apt -y install build-essential libpcap-dev aircrack-ng pixiewps;
+           # Reaver install;
+           git clone https://github.com/t6x/reaver-wps-fork-t6x;
+           cd reaver-wps-fork-t6x* || exit;
+           cd src./configure || exit;
+           make;
+           sudo make install;
+           cd ..
+           cd ..
+            Bully install
+           apt-get -y install build-essential libpcap-dev aircrack-ng pixiewps;
+           git clone https://github.com/aanarchyy/bully;
+           cd bully*/ || exit;
+           cd src/ || exit;
+           make;
+           sudo make install;
+           cd ..
+           cd ..
+           # Pyrit install;
+           apt-get install pyrit;
+           # wireshark install
+           apt-get install wireshark;
+           # Hash cat install
+           apt install hashcat;
+           # hcxdumptool install
+           git clone https://github.com/ZerBea/hcxdumptool.git;
+           cd hcxdumptool || exit;
+           sudo apt-get install libcurl4-openssl-dev libssl-dev pkg-config;
+           make;
+           make install;
+           cd ..;
+           # hcxtools install
+           git clone https://github.com/ZerBea/hcxtools.git;
+           cd hcxtools || exit;
+           make;
+           make install;
+           cd ..;
+           # macchanger
+           apt-get install macchanger;
+           apt update -y  && apt upgrade -y;;
 
     3002 ) sudo apt install wireshark -y;;
 
@@ -367,13 +367,13 @@ echo ;;
 # Project info
     v ) echo ;
         echo ;
-        echo         ==============================; 
-        echo         =___Open_Testing_____________=;
-        echo         =____________________________=;
-        echo         =___version_1.5_BETA_________=;
-        echo         =___Dedicated_OS:_Debian_11__=;
-        echo         =___AROA-DEV_________________=;
-        echo         ==============================;
+        echo         "=============================="; 
+        echo         "=___Open_Testing_____________=";
+        echo         "=____________________________=";
+        echo         "=___version_1.5_BETA_________=";
+        echo         "=___Dedicated_OS:_Debian_11__=";
+        echo         "=___AROA-DEV_________________=";
+        echo         "==============================";
         echo ;
         echo ;;
 
@@ -385,25 +385,25 @@ echo ;;
 
 # user settings
     newuser ) echo -n "Enter the username: ";
-              read new;
-              sudo adduser $new ;
+              read -r new;
+              sudo adduser "$new" ;
               cd / ;
-              cd home;
-              mkdir $new;;
+              cd home || exit;
+              mkdir "$new";;
 
     remuveuser ) echo -n "Enter the username that you want to remove: ";
-                 read remuve;
-                 sudo deluser $remuve;
+                 read -r remuve;
+                 sudo deluser "$remuve";
                  cd /;
-                 cd home;
-                 rm -rf $remuve;;
+                 cd home || exit;
+                 rm -rf "$remuve";;
     logout ) # Get a list of connected users;
             users=$(who | awk '{print $1}' | sort | uniq);
             # Print the list of users;
             echo "Connected users:";
             echo "$users";
             # Ask the user which user to terminate;
-            read -p "Enter the username to terminate all processes: " username;
+            read -p -r "Enter the username to terminate all processes: " username;
             # Terminate all processes of the selected user;
             pkill -KILL -u "$username";
             echo "All processes of user $username have been terminated.";;
@@ -411,9 +411,10 @@ echo ;;
 # Network check
     ip ) ip addr;;
 
-    ping ) echo -n "what would you like to ping: ";
-           read $chek;
-           ping $check;;
+    ping ) #read for ping
+           read -p -r "what would you like to ping: " chekip;
+           ping "$checkip";
+           echo "checkip";;
 
 # remote access to system 
 
