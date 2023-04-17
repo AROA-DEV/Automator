@@ -96,6 +96,7 @@ case $yn in
     0 ) echo ;
         echo -e 7zip "${YELOW}[0001]${ENDCOLOR}";
         echo -e VS code "${YELOW}[0002]${ENDCOLOR}";
+        echo -e Docker "${YELOW}[0003]${ENDCOLOR}";
         echo ;;
 
     1 ) echo ;
@@ -159,6 +160,25 @@ case $yn in
         sudo apt install apt-transport-https;
         sudo apt update;
         sudo apt install code;; # or code-insiders
+
+    0003 ) #uninstall od versions of docker;
+           sudo apt-get remove docker docker-engine docker.io containerd runc;
+           # Install docker;
+           sudo apt-get update;
+           sudo apt-get install \
+                ca-certificates \
+                curl \
+                gnupg;
+           sudo install -m 0755 -d /etc/apt/keyrings;
+           curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg;
+           sudo chmod a+r /etc/apt/keyrings/docker.gpg;
+           echo \
+           "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+           "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+           sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;
+           sudo apt-get update;
+           sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin;
+           sudo docker run hello-world;;
            
 # OSINT options
 
