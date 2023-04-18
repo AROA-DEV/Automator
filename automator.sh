@@ -24,7 +24,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
-read -r distro </etc/issue
+read distro </etc/issue
 if [[ "$distro" = "Debian" ]];
 then
     echo -
@@ -53,7 +53,7 @@ echo -e show options "${YELOW}[op]${ENDCOLOR}"
 echo -e show version "${YELOW}[v]${ENDCOLOR}"
 echo 
 while true; do
-read -p -r "how do you want to proceed? " yn
+read -p "how do you want to proceed? " yn
 
 case $yn in 
 
@@ -96,6 +96,7 @@ case $yn in
     0 ) echo ;
         echo -e 7zip "${YELOW}[0001]${ENDCOLOR}";
         echo -e VS code "${YELOW}[0002]${ENDCOLOR}";
+        echo -e Docker "${YELOW}[0003]${ENDCOLOR}";
         echo ;;
 
     1 ) echo ;
@@ -159,6 +160,25 @@ case $yn in
         sudo apt install apt-transport-https;
         sudo apt update;
         sudo apt install code;; # or code-insiders
+
+    0003 ) #uninstall od versions of docker;
+           sudo apt-get remove docker docker-engine docker.io containerd runc;
+           # Install docker;
+           sudo apt-get update;
+           sudo apt-get install \
+                ca-certificates \
+                curl \
+                gnupg;
+           sudo install -m 0755 -d /etc/apt/keyrings;
+           curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg;
+           sudo chmod a+r /etc/apt/keyrings/docker.gpg;
+           echo \
+           "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+           "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+           sudo tee /etc/apt/sources.list.d/docker.list > /dev/null;
+           sudo apt-get update;
+           sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin;
+           sudo docker run hello-world;;
            
 # OSINT options
 
@@ -371,7 +391,7 @@ echo ;;
         echo         "=___Open_Testing_____________=";
         echo         "=____________________________=";
         echo         "=___version_1.5_BETA_________=";
-        echo         "=___Dedicated_OS:_Debian_11__=";
+        echo         "=___Dedicated_OS:____________=";
         echo         "=___AROA-DEV_________________=";
         echo         "==============================";
         echo ;
@@ -385,14 +405,14 @@ echo ;;
 
 # user settings
     newuser ) echo -n "Enter the username: ";
-              read -r new;
+              read new;
               sudo adduser "$new" ;
               cd / ;
               cd home || exit;
               mkdir "$new";;
 
     remuveuser ) echo -n "Enter the username that you want to remove: ";
-                 read -r remuve;
+                 read remuve;
                  sudo deluser "$remuve";
                  cd /;
                  cd home || exit;
@@ -403,7 +423,7 @@ echo ;;
             echo "Connected users:";
             echo "$users";
             # Ask the user which user to terminate;
-            read -p -r "Enter the username to terminate all processes: " username;
+            read -p "Enter the username to terminate all processes: " username;
             # Terminate all processes of the selected user;
             pkill -KILL -u "$username";
             echo "All processes of user $username have been terminated.";;
@@ -412,7 +432,7 @@ echo ;;
     ip ) ip addr;;
 
     ping ) #read for ping
-           read -p -r "what would you like to ping: " chekip;
+           read -p "what would you like to ping: " chekip;
            ping "$checkip";
            echo "checkip";;
 
