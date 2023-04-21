@@ -82,7 +82,7 @@ tested os: Debian 11,
 Upcoming features:
 ( the check features checked are avaleable in the beta branch but havent made it to the release version )
 
-- [ ] Docker install
+- [x] Docker install (for debian)
 
 
 
