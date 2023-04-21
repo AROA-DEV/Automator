@@ -1,4 +1,7 @@
 #!/bin/bash
+RED="\e[31m"
+YELOW="\e[33m"  
+ENDCOLOR="\e[0m";
 
 # set the repository URL and current version
 url="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/version.txt"
@@ -9,7 +12,7 @@ remote_version=$(curl -s $url)
 
 # compare the versions
 if [[ "$current_version" != "$remote_version" ]]; then
-    echo "There is a new version available. Please update to version $remote_version."
+    echo -e There is a new version available. Please update to version "${RED} $remote_version ${ENDCOLOR}".
 else
-    echo "You are using the latest version."
+    echo -e You are using the latest version "${YELOW} $current_version ${ENDCOLOR}";
 fi
