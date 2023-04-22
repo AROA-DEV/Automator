@@ -18,7 +18,7 @@ echo Dedicated version for Debian 11
 echo
 # set the repository URL and current version
 url="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/version.txt"
-current_version="1.5.1"
+current_version="1.5.2"
 
 # get the version from the remote file
 remote_version=$(curl -s $url)
