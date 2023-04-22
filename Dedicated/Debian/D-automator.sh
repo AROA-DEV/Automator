@@ -18,7 +18,7 @@ echo Dedicated version for Debian 11
 echo
 # set the repository URL and current version
 url="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/version.txt"
-current_version="1.5.1"
+current_version="1.5.2"
 
 # get the version from the remote file
 remote_version=$(curl -s $url)
@@ -36,7 +36,9 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
     sleep 5
 fi
-read distro </etc/issue
+
+distro=$(cat /etc/issue) #check distro
+
 if [[ "$distro" = "Debian" ]];
 then
     echo -
@@ -45,9 +47,8 @@ else
     echo -e "${RED} These is the dedicated automator version for Debian 11, if used in another distro things may not work ${ENDCOLOR}"
     echo
 fi
-
 echo 
-cat /etc/issue #check distro
+
 echo
 echo
 echo -e complete system setup "${YELOW}[systemsetup]${ENDCOLOR}"
@@ -498,7 +499,8 @@ echo ;;
                   sleep 10;
                   systemctl reboot -i ;;
 
-    update ) apt update -y && apt upgrade -y;;
+    update ) apt update -y && apt upgrade -y;
+             automator-update;;
 
 # invalid option (keep last)    
     * ) echo invalid response run [help] ;;    
