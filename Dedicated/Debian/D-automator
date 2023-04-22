@@ -16,8 +16,20 @@ echo ╚═╝__╚═╝ ╚═════╝____╚═╝____╚════�
 echo 
 echo Dedicated version for Debian 11
 echo
-uptime
-who
+# set the repository URL and current version
+url="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/version.txt"
+current_version="1.5.1"
+
+# get the version from the remote file
+remote_version=$(curl -s $url)
+
+# compare the versions
+if [[ "$current_version" != "$remote_version" ]]; then
+    echo -e There is a new version available. Please update to version "${RED} $remote_version ${ENDCOLOR}".
+else
+    echo -e You are using the latest version "${YELOW} $current_version ${ENDCOLOR}";
+fi
+
 echo
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED}!!! run as root !!!${ENDCOLOR}"
