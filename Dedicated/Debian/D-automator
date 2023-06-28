@@ -195,10 +195,12 @@ case $yn in
            
 # OSINT options
 
-    1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
+    1001 ) git clone https://github.com/AROA-DEV/Automator.git;
            cd Osintgram || exit;
            pip3 install -r requirements.txt;
-           wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/Osintgram/usage.txt; 
+           echo .;
+           echo -e "${YELOW}Remember to add acount credentials${ENDCOLOR}";
+           echo .;
            cd .. ;;
 
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
