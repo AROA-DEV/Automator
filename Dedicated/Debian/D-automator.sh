@@ -16,6 +16,14 @@ echo ╚═╝__╚═╝ ╚═════╝____╚═╝____╚════�
 echo 
 echo Dedicated version for Debian 11
 echo
+# seth th path for the script and accesories:
+auto_script="https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator" # change link when pass to release version;
+# auto_script="https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator"
+update_script=https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator-update; # change link when pass to release version;
+# update_script="https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator-update"
+# set the path for the tools
+log_scrip="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/Log/Log.sh"
+
 # set the repository URL and current version
 url="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/version.txt"
 current_version="1.5.2-(BETA)"
@@ -73,7 +81,6 @@ case $yn in
 # show system options
 
 # simple options output
-
     system ) echo ;
              echo system tools ;
              echo ;
@@ -160,7 +167,6 @@ case $yn in
     AV ) echo -e ClamAV/ClamTk "${YELOW} [AV01]${ENDCOLOR}";;
 
 # office tools
-
     0001 ) sudo apt install p7zip-full;;
 
     0002 ) URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
@@ -195,7 +201,6 @@ case $yn in
            sudo docker run hello-world;;
            
 # OSINT options
-
     1001 ) git clone https://github.com/AROA-DEV/Automator.git;
            cd Osintgram || exit;
            pip3 install -r requirements.txt;
@@ -234,7 +239,6 @@ case $yn in
 
 
 # Exploit 
-
     2001 ) curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \ ;
            chmod 755 msfinstall && \ ;
            ./msfinstall;;
@@ -356,11 +360,9 @@ case $yn in
             cd lynis && ./lynis audit system;;
 
 # Anty Virus
-
     AV01 ) sudo apt install clamav clamtk;;
 
 # Popular recuirements
-
     python- ) echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
               sudo apt update;
               sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10 python3-pip;;
@@ -414,7 +416,6 @@ echo ;;
         echo ;;
 
 # system tool
-
     sinfo ) neofetch;;
 
     clear ) clear;;
@@ -446,14 +447,15 @@ echo ;;
 
 # Network check
     ip ) ip addr;;
-
-    ping ) #read for ping
-           read -p "what would you like to ping: " chekip;
-           ping "$checkip";
-           echo "checkip";;
+    ping ) #read for ping;
+       read -p "What would you like to ping: " checkip
+       if ping -c 1 "$checkip" &> /dev/null; then
+           echo "Ping successful"
+       else
+           echo "Ping failed"
+       fi;;
 
 # remote access to system 
-
     sshserver ) sudo apt install openssh-server;
                 sudo systemctl start ssh;
                 sudo systemctl status ssh;
@@ -474,6 +476,8 @@ echo ;;
           echo - ssh Loging;
           echo - apt updates and upgrades;
           echo .;
+          wget -P /root/ $log_scrip;
+          mv Log.sh .log-update.sh;
           # Define the cron job command;
           cron_job="55 23 * * * /root/.log-update.sh >> /root/log/auto/cron_$(date +\%Y-\%m-\%d).log 2>&1";
           # Create a temporary file to hold the current crontab;
@@ -498,16 +502,13 @@ echo ;;
     sshutdown ) systemctl shutdown;;
 
 # full system set up
-
     systemsetup ) apt install sudo;
                   cd /;
                   cd bin;
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator; # change link when pass to release version;
-                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator;
+                  wget $auto_script;
                   mv D-automator automator;
                   chmod +x automator;
-                  wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator-update; # change link when pass to release version;
-                  # wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator-update;
+                  wget $update_script;
                   mv D-automator-update automator-update;
                   chmod +x automator-update;
                   apt update -y && apt upgrade -y;
@@ -530,7 +531,5 @@ echo ;;
 # invalid option (keep last)    
     * ) echo invalid response run [help] ;;    
 esac
-
 done
-
 echo doing stuff...
