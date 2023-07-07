@@ -52,7 +52,7 @@ then
     echo -
 else
     echo
-    echo -e These is the dedicated automator version for  "${RED}  Debian 11/12 ${ENDCOLOR}", if used in another distro things may not work properly
+    echo -e These is the dedicated automator version for  "${RED} Debian 11/12 ${ENDCOLOR}", if used in another distro things may not work properly
     echo
 fi
 echo 
