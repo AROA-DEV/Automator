@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RED="\e[31m"
+RED="\e[31m\e[1m" 
 GREEN="\e[32m"
 YELOW="\e[33m"  
 BLUE="\e[34m"
@@ -18,7 +18,7 @@ echo Dedicated version for Debian 11
 echo
 # set the repository URL and current version
 url="https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Debian/version.txt"
-current_version="1.5.2"
+current_version="1.5.2-(BETA)"
 
 # get the version from the remote file
 remote_version=$(curl -s $url)
@@ -44,7 +44,7 @@ then
     echo -
 else
     echo
-    echo -e "${RED} These is the dedicated automator version for Debian 11, if used in another distro things may not work ${ENDCOLOR}"
+    echo -e These is the dedicated automator version for  "${RED}  Debian 11/12 ${ENDCOLOR}", if used in another distro things may not work properly
     echo
 fi
 echo 
@@ -78,6 +78,7 @@ case $yn in
              echo system tools ;
              echo ;
              echo -e show system info "${YELOW}[sinfo]${ENDCOLOR}";
+             echo -e Auto log "${YELOW}[log]${ENDCOLOR}";
              echo ;
              echo -e test network "${YELOW}[network]${ENDCOLOR}";
              echo -e user settings "${YELOW}[user]${ENDCOLOR}";
@@ -460,12 +461,34 @@ echo ;;
 
 
     xrdp ) sudo apt install ufw -y;
-           apt install xrdp;
+           apt install xrdp -y;
            sudo systemctl status xrdp;
            sudo adduser xrdp ssl-cert;
            sudo systemctl restart xrdp;
            sudo systemctl enable xrdp;
            sudo ufw allow ;;
+
+# Auto log
+    log ) echo .;
+          echo These Creates a script that will update and create the logs every day at 23:55;
+          echo - ssh Loging;
+          echo - apt updates and upgrades;
+          echo .;
+          # Define the cron job command;
+          cron_job="55 23 * * * /root/.log-update.sh >> /root/log/auto/cron_$(date +\%Y-\%m-\%d).log 2>&1";
+          # Create a temporary file to hold the current crontab;
+          temp_file=$(mktemp);
+          # Retrieve the current crontab entries and append the new job;
+          crontab -l > "$temp_file";
+          echo "$cron_job" >> "$temp_file";
+          # Install the updated crontab file;
+          crontab "$temp_file";
+          # Remove the temporary file;
+          rm "$temp_file";
+          mkdir -p /root/log/loging-log/full-log;
+          mkdir -p /root/log/loging-log/denied/;
+          mkdir -p /root/log/loging-log/accepted/;
+          mkdir -p /root/log/update-log/;;
 
 
 

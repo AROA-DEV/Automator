@@ -9,7 +9,7 @@ MONTH=$(date +%m)
 UPDATE_LOG_FILE="/root/log/update-log/$DATE.log"
 SUCCESS_LOG_FILE="/root/log/loging-log/accepted/$DATE.log"
 FAILED_LOG_FILE="/root/log/loging-log/denied/$DATE.log"
-FULL_LOG_DIR="/root/log/full-log"
+FULL_LOG_DIR="/root/log/loging-log/full-log"
 FULL_LOG_FILE="$FULL_LOG_DIR/$DATE.log"
 MONTHLY_LOG_DIR="$FULL_LOG_DIR/$YEAR-$MONTH"
 MONTHLY_ZIP_FILE="$FULL_LOG_DIR/$YEAR-$MONTH.zip"
@@ -17,6 +17,9 @@ MONTHLY_ZIP_FILE="$FULL_LOG_DIR/$YEAR-$MONTH.zip"
 # Update the system and log the output
 apt update -y >> "$UPDATE_LOG_FILE" 2>&1
 apt upgrade -y >> "$UPDATE_LOG_FILE" 2>&1
+
+# Create the monthly log directory if it doesn't exist
+mkdir -p "$MONTHLY_LOG_DIR"
 
 # Filter successful login entries from journalctl and copy them to the log file
 journalctl -u ssh --since yesterday --until now --output=short-iso | grep "Accepted" > "$SUCCESS_LOG_FILE"
@@ -29,9 +32,6 @@ journalctl -u ssh --since yesterday --until now --output=short-iso | awk '/sshd/
 # Copy the full log to the log file
 journalctl -u ssh --since yesterday --until now > "$FULL_LOG_FILE"
 
-
-# Create the monthly log directory if it doesn't exist
-mkdir -p "$MONTHLY_LOG_DIR"
 # Move the current day's log file to the monthly log directory
 mv "$FULL_LOG_FILE" "$MONTHLY_LOG_DIR/"
 # If it's the last day of the month, create a zip file with all logs for the month
@@ -47,9 +47,10 @@ if [[ $(date -d "+1 day" +%d) == "01" ]]; then
     rm -rf "$MONTHLY_LOG_DIR"
 fi
 
-# Delete all bash history
-cat /dev/null > /home/anoam/.bash_history
-cat /dev/null > /home/vscode/.bash_history
+# Delete all bash history for all users
+for user in /home/*; do
+    cat /dev/null > "$user/.bash_history"
+done
 cat /dev/null > /root/.bash_history
 
 # Reboot the system
