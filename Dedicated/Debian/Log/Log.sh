@@ -4,6 +4,7 @@ DATE=$(date +%F)
 # Extract the year and month from the current date
 YEAR=$(date +%Y)
 MONTH=$(date +%m)
+DAY=$(date +%d)
 
 # Set the log file paths
 UPDATE_LOG_FILE="/root/log/update-log/$DATE.log"
@@ -13,6 +14,9 @@ FULL_LOG_DIR="/root/log/loging-log/full-log"
 FULL_LOG_FILE="$FULL_LOG_DIR/$DATE.log"
 MONTHLY_LOG_DIR="$FULL_LOG_DIR/$YEAR-$MONTH"
 MONTHLY_ZIP_FILE="$FULL_LOG_DIR/$YEAR-$MONTH.zip"
+SEC_LOG_DIR="/root/log/security-log/$YEAR/$MONTH/$DAY/"
+# Define the mount point directory for the USB 
+USB_MOUNT_DIR="/root/Log-USB"
 
 # Update the system and log the output
 apt update -y >> "$UPDATE_LOG_FILE" 2>&1
@@ -46,6 +50,16 @@ if [[ $(date -d "+1 day" +%d) == "01" ]]; then
     find /root/log/loging-log/denied -name "*.log" -mtime +30 -delete
     rm -rf "$MONTHLY_LOG_DIR"
 fi
+
+# Mount the USB device to the specified mount point
+mkdir -p "$USB_MOUNT_DIR"
+mount /dev/sdb1 "$USB_MOUNT_DIR"
+# Copy the log files to the USB mount point
+cp -ru "$MONTHLY_LOG_DIR" "$USB_MOUNT_DIR"
+cp -ru "$SEC_LOG_DIR" "$USB_MOUNT_DIR"
+chmod 777 "$USB_MOUNT_DIR/log"
+# Unmount the USB device
+umount "$USB_MOUNT_DIR"
 
 # Delete all bash history for all users
 for user in /home/*; do
