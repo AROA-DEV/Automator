@@ -44,9 +44,9 @@ sudo lastb | tee "$SEC_LOG_DIR/lastb.log"
 # Output a message indicating the scan is complete
 echo "Security scans complete. Check the log files in '$SEC_LOG_DIR' for details."
 
-# On the 1st day of the month, zip the previous month's logs and delete them
+# On the 1st day of the month, tar.gz the previous month's logs and delete them
 if [[ $DAY -eq 1 ]]; then
-    PREV_MONTH_ZIP_FILE="/root/log/security-log/$PREV_YEAR/$PREV_MONTH.zip"
-    zip -r "$PREV_MONTH_ZIP_FILE" "$PREV_MONTH_LOG_DIR"
+    PREV_MONTH_TAR_FILE="/root/log/security-log/$PREV_YEAR/$PREV_MONTH.tar.gz"
+    tar -zcf "$PREV_MONTH_TAR_FILE" "$PREV_MONTH_LOG_DIR"
     rm -rf "$PREV_MONTH_LOG_DIR"
 fi
