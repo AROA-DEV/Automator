@@ -1,29 +1,29 @@
 #!/bin/bash
-# Get the current date in YYYY-MM-DD format
-DATE=$(date +%F)
 # Extract the year and month from the current date
 YEAR=$(date +%Y)
 MONTH=$(date +%m)
 DAY=$(date +%d)
-
+# Previous month and year logs
+PREV_MONTH=$(date -d "last month" +%m)
+PREV_YEAR=$(date -d "last month" +%Y)
+# Set the log directory paths
+LOG_DIR="/root/log/$YEAR/$MONTH/$DAY/"
+SSH_LOG_DIR="$LOG_DIR/ssh/"
 # Set the log file paths
-UPDATE_LOG_FILE="/root/log/update-log/$DATE.log"
-SUCCESS_LOG_FILE="/root/log/loging-log/accepted/$DATE.log"
-FAILED_LOG_FILE="/root/log/loging-log/denied/$DATE.log"
-FULL_LOG_DIR="/root/log/loging-log/full-log"
-FULL_LOG_FILE="$FULL_LOG_DIR/$DATE.log"
-MONTHLY_LOG_DIR="$FULL_LOG_DIR/$YEAR-$MONTH"
-MONTHLY_ZIP_FILE="$FULL_LOG_DIR/$YEAR-$MONTH.zip"
-SEC_LOG_DIR="/root/log/security-log/$YEAR/$MONTH/$DAY/"
+SUCCESS_LOG_FILE="$SSH_LOG_DIR/success.log"
+FAILED_LOG_FILE="$SSH_LOG_DIR/failed.log"
+FULL_LOG_FILE="$SSH_LOG_DIR/full.log"
+UPDATE_LOG_FILE="$LOG_DIR/update-upgrade.log"
 # Define the mount point directory for the USB 
 USB_MOUNT_DIR="/root/Log-USB"
+
+# Create the monthly and ssh log directoryes if it doesn't exist
+mkdir -p "$LOG_DIR"
+mkdir -p "$SSH_LOG_DIR"
 
 # Update the system and log the output
 apt update -y >> "$UPDATE_LOG_FILE" 2>&1
 apt upgrade -y >> "$UPDATE_LOG_FILE" 2>&1
-
-# Create the monthly log directory if it doesn't exist
-mkdir -p "$MONTHLY_LOG_DIR"
 
 # Filter successful login entries from journalctl and copy them to the log file
 journalctl -u ssh --since yesterday --until now --output=short-iso | grep "Accepted" > "$SUCCESS_LOG_FILE"
@@ -36,27 +36,22 @@ journalctl -u ssh --since yesterday --until now --output=short-iso | awk '/sshd/
 # Copy the full log to the log file
 journalctl -u ssh --since yesterday --until now > "$FULL_LOG_FILE"
 
-# Move the current day's log file to the monthly log directory
-mv "$FULL_LOG_FILE" "$MONTHLY_LOG_DIR/"
-# If it's the last day of the month, create a zip file with all logs for the month
-if [[ $(date -d "+1 day" +%d) == "01" ]]; then
-    # Zip all the logs from the current month into the monthly zip file
-    zip -j "$MONTHLY_ZIP_FILE" "$MONTHLY_LOG_DIR"/*.log
-fi
-# If it's the last day of the month, delete log files from the previous month
-if [[ $(date -d "+1 day" +%d) == "01" ]]; then
-    find /root/log/update-log -name "*.log" -mtime +30 -delete
-    find /root/log/loging-log/accepted -name "*.log" -mtime +30 -delete
-    find /root/log/loging-log/denied -name "*.log" -mtime +30 -delete
-    rm -rf "$MONTHLY_LOG_DIR"
+# compress and delete the previous month's logs
+if [[ $DAY -eq 1 ]]; then
+    PREV_MONTH_LOG_DIR="/root/log/$PREV_YEAR/$PREV_MONTH"
+    PREV_MONTH_TAR_FILE="/root/log/$PREV_YEAR/$PREV_MONTH.tar.gz"
+    tar -zcf "$PREV_MONTH_TAR_FILE" "$PREV_MONTH_LOG_DIR"
+    rm -rf "$PREV_MONTH_LOG_DIR"
 fi
 
 # Mount the USB device to the specified mount point
 mkdir -p "$USB_MOUNT_DIR"
 mount /dev/sdb1 "$USB_MOUNT_DIR"
+# create directories on the usb device
+mkdir -p "$USB_MOUNT_DIR/log/$YEAR/$MONTH/$DAY/ssh/"
+mkdir -p "$USB_MOUNT_DIR/log/$YEAR/$MONTH/$DAY/secutiry/"
 # Copy the log files to the USB mount point
-cp -ru "$MONTHLY_LOG_DIR" "$USB_MOUNT_DIR"
-cp -ru "$SEC_LOG_DIR" "$USB_MOUNT_DIR"
+cp -ru "/root/log/" "$USB_MOUNT_DIR" # /root/log/$YEAR/$MONTH/$DAY/ to /root/Log-USB/log/$YEAR/$MONTH/$DAY/
 chmod 777 "$USB_MOUNT_DIR/log"
 # Unmount the USB device
 umount "$USB_MOUNT_DIR"
