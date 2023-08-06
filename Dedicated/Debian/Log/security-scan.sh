@@ -21,17 +21,25 @@ sudo lynis audit system | tee "$SEC_LOG_DIR/lynis.log"
 sudo tiger | tee "$SEC_LOG_DIR/tiger.log"
 # Scan the system with psad and save the output to a file
 sudo psad -S | tee "$SEC_LOG_DIR/psad.log"
-# Scan the system with debsecan and save the output to a file
-sudo debsecan | tee "$SEC_LOG_DIR/debsecan.log"
+
+# Get the current day of the week (0: Sunday, 1: Monday, ..., 6: Saturday)
+current_day=$(date +%w)
+
+# Check if it's Sunday (1st day of the week)
+if [ "$current_day" -eq 0 ]; then
+    # Scan the system with debsecan and save the output to a file
+    sudo debsecan | tee "$SEC_LOG_DIR/debsecan.log"
+    # Update ClamAV virus definitions
+    freshclam | tee "$SEC_LOG_DIR/scan.log"
+    # Scan the full system with ClamAV and save the output to a file
+    clamscan -r / | tee "$SEC_LOG_DIR/scan.log"
+    sudo sh -c 'echo 1 > /proc/sys/vm/drop_caches'
+else
+    echo "Not the 1st day of the week. will not run debsecan and ClamAV to save resources."
+fi
+
 # Check the last login attempts and save the output to a file
 sudo lastb | tee "$SEC_LOG_DIR/lastb.log"
-# Update ClamAV virus definitions
-freshclam
-# Scan the full system with ClamAV and save the output to a file
-clamscan -r / | tee "$SEC_LOG_DIR/scan.log"
-
-# Output a message indicating the scan is complete
-# echo "Security scans complete. Check the log files in '$SEC_LOG_DIR' for details."
 
 # Mount the USB device to the specified mount point
 mkdir -p "$USB_MOUNT_DIR"
