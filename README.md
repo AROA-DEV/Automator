@@ -19,7 +19,7 @@ run automator
 ````
 run "systemsetup" to be able to run it from any location
 
-## The automated setup (:warning: Concept :warning:)
+## The automated setup ( :warning: Concept :warning: )
 ````
 wget https://raw.githubusercontent.com/AROA-DEV/Automator/Beta-testing/Dedicated/Automatorsetup.sh
 ````
@@ -31,7 +31,7 @@ chmod +x Automatorsetup.sh
 ./Automatorsetup.sh
 ````
 
-tested os: Debian 11,
+tested os: Debian 11/12
 <details><summary>Features</summary>
 <p>
 
