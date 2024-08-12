@@ -21,7 +21,7 @@ who
 echo
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${RED}!!! run as root !!!${ENDCOLOR}"
-    echo -e "${RED} or a user with the permissions ${ENDCOLOR}"
+    echo -e "${RED} or a user with the sudo permissions ${ENDCOLOR}"
     sleep 5
 fi
 
@@ -33,6 +33,22 @@ else
     echo -e "${RED} These is the dedicated automator version for Debian 11, if used in an other distro things may not work ${ENDCOLOR}"
     echo
 fi
+
+check_program() {
+    local program="$1"
+    if command -v "$program" &>/dev/null; then
+        echo "$program is installed."
+    else
+        echo "$program is not installed."
+        read -p "Do you want to install $program? (y/n): " choice
+        if [[ "$choice" == [Yy]* ]]; then
+            sudo apt-get install "$program"
+        else
+            echo "Okay, $program will not be installed."
+        fi
+    fi
+}
+
 
 echo 
 cat /etc/issue #check distro
@@ -148,7 +164,7 @@ case $yn in
 # OSINT options
 
     1001 ) git clone https://github.com/AROA-DEV/Osintgram.git;
-           cd Osintgram;
+           cd Osintgram || cd ..;
            pip3 install -r requirements.txt;
            wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/Osintgram/usage.txt; 
            cd .. ;;
@@ -156,12 +172,12 @@ case $yn in
     1002 ) git clone https://github.com/lanmaster53/recon-ng.git ;;
 
     1003 ) git clone https://github.com/m4ll0k/Infoga.git;
-           cd Infoga;
+           cd Infoga || cd ..;
            python3 setup.py install;
            python3 infoga.py;;
 
     1004 ) mkdir Phoneinfoga ;
-           cd PhoneInfoga ;
+           cd PhoneInfoga || cd ..;
            wget https://github.com/AROA-DEV/Tool-Instructions/blob/main/phoneinfoga/usage.txt ;
            curl -sSL https://raw.githubusercontent.com/sundowndev/phoneinfoga/master/support/scripts/install | bash ;
            ./phoneinfoga version ;
@@ -174,7 +190,7 @@ case $yn in
 
     1006 ) pip3 install PyInquirer jinja2 bs4;
            git clone https://github.com/amitrajputfff/Profil3r.git;
-           cd Profil3r/;
+           cd Profil3r/ || cd ..;
            python3 setup.py install;;
 
 
@@ -185,9 +201,9 @@ case $yn in
            ./msfinstall;;
 
     2002 ) mkdir SEToolkit;
-           cd SEToolkit;
+           cd SEToolkit || cd ..;
            git clone https://github.com/trustedsec/social-engineer-toolkit setoolkit/;
-           cd setoolkit;
+           cd setoolkit || cd ..;
            pip3 install -r requirements.txt;
            python setup.py;
            echo run "${YELOW}[ setoolkit ]${ENDCOLOR}";;
@@ -201,7 +217,7 @@ case $yn in
 
     2004 )  pkg install -y git;
             git clone https://github.com/Cesar-Hack-Gray/SocialSploit;
-            cd SocialSploit;
+            cd SocialSploit || cd ..;
             ls;
             bash install.sh;
             ./Sploit;;
@@ -214,50 +230,73 @@ case $yn in
            sudo apt update
            sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10
            git clone https://github.com/HavocFramework/Havoc.git;
-           cd Havoc/Client;
+           cd Havoc/Client || cd ..;
            make ;
-           cd Havoc/Client;
+           cd Havoc/Client || cd ..;
            chmod +x Havoc ;
            ./Havoc;;
     
     2006 ) echo installing Havoc Team server;
            sleep 5;
            git clone https://github.com/HavocFramework/Havoc.git;
-           cd Havoc/Teamserver;
+           cd Havoc/Teamserver || cd ..;
            go mod download golang.org/x/sys;
            go mod download github.com/ugorji/go;
-           cd Teamserver
+           cd Teamserver || cd ..;
            # Install MUSL C Compiler
-           chmod +x ./Install.sh
-           ./Install.sh
+           chmod +x ./Install.sh;
+           ./Install.sh;
            # Build Binary
-           make
-           ./teamserver -h
+           make;
+           ./teamserver -h;
            # Run the teamserver
-           sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug
-           echo -e "${RED}[ The users are the defaults ones, remember to change theme ]${RED}";
+           sudo ./teamserver server --profile ./profiles/havoc.yaotl -v --debug;
+           echo -e "${RED}[ The users are the defaults ones, remember to change theme ]${ENDCOLOR}";
            sleep 5;
            ./teamserver -h;;
 
-# Wireles atcks
-    3001 ) git clone https://github.com/derv82/wifite2.git ;
-           cd wifite2 ;
-           sudo ./Wifite.py ;
-           sudo python setup.py install;;
+    2007 )  echo installing Ghostkey Server;
+            check_program git;
+            git clone https://github.com/Ghostkey-Project/Ghostkey_Server.git;
+            cd Ghostkey_Server || cd ..;
+            echo -e "${RED}Using default key ${ENDCOLOR}";
+            echo -e "${RED}SECRET_KEY=your_secret_key${ENDCOLOR}";
+            export SECRET_KEY=your_secret_key;
+            go run main.go models.go routes.go;
+            echo -e "${GREEN}Done${ENDCOLOR}";;
 
-    3002 ) sudo apt install wireshark -y;;
+    2008 )  echo installing Ghostkey Depo;
+            check_program git;
+            git clone https://github.com/Ghostkey-Project/Ghostkey_Depo.git
+            cd Ghostkey_Depo || cd ..;
+            read -p "would youlike to run the Ghostkey depo?" 2008yn;
+            if [[ "$2008yn" == [Yy]* ]]; then
+                go run main.go models.go routes.go;
+            else
+                echo -e "${RED}The Ghostkey Depo is not running${ENDCOLOR}";
+            fi;
+            echo -e "${GREEN}Done${ENDCOLOR}";;
+
+
+# Wireles atcks
+    3001 )  git clone https://github.com/derv82/wifite2.git ;
+            cd wifite2 || cd ..;
+            sudo ./Wifite.py ;
+            sudo python setup.py install;;
+
+    3002 )  udo apt install wireshark -y;;
 
 # vulnerability detection
-    4001 ) git clone https://github.com/CISOfy/lynis;
+    4001 )  git clone https://github.com/CISOfy/lynis;
             cd lynis && ./lynis audit system;;
 
 # Anty Virus
 
-    AV01 ) sudo apt install clamav clamtk;;
+    AV01 )  sudo apt install clamav clamtk;;
 
 # Popular recuirements
 
-    python- ) echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
+    python )  echo 'deb http://ftp.de.debian.org/debian bookworm main' >> /etc/apt/sources.list;
               sudo apt update;
               sudo apt install python3-dev python3.10-dev libpython3.10 libpython3.10-dev python3.10 python3-pip;;
 
@@ -320,14 +359,14 @@ echo ;;
               read new;
               sudo adduser $new ;
               cd / ;
-              cd home;
+              cd home || cd ..;
               mkdir $new;;
 
     remuveuser ) echo -n "Enter the username that you whant to remuve: ";
                  read remuve;
                  sudo deluser $remuve;
                  cd /;
-                 cd home;
+                 cd home || cd ..;
                  rm -rf $remuve;;
 
 # Network check
@@ -363,7 +402,7 @@ echo ;;
 
     systemsetup ) apt install sudo;
                   cd /;
-                  cd bin;
+                  cd bin || cd ..;
                   #wget https://raw.githubusercontent.com/AROA-DEV/automator/Beta-testing/Dedicated/Debian/D-automator; # change link when pass to release version;
                    wget https://raw.githubusercontent.com/AROA-DEV/automator/main/Dedicated/Debian/D-automator;
                   mv D-automator automator;
