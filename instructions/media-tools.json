@@ -1,0 +1,47 @@
+{
+    "version": "1.0",
+    "category": "media",
+    "description": "Media processing and editing tools",
+    "packages": [
+        {
+            "id": "ffmpeg",
+            "name": "FFmpeg",
+            "type": "media-processing",
+            "description": "Video and audio processing tool",
+            "install_command": "sudo apt-get install -y ffmpeg",
+            "dependencies": []
+        },
+        {
+            "id": "gimp",
+            "name": "GIMP",
+            "type": "image-editing",
+            "description": "GNU Image Manipulation Program",
+            "install_command": "sudo apt-get install -y gimp",
+            "dependencies": []
+        },
+        {
+            "id": "kdenlive",
+            "name": "Kdenlive",
+            "type": "video-editing",
+            "description": "Open source video editor",
+            "install_command": "sudo apt-get install -y kdenlive",
+            "dependencies": []
+        },
+        {
+            "id": "obs-studio",
+            "name": "OBS Studio",
+            "type": "streaming",
+            "description": "Streaming and recording software",
+            "install_command": "sudo apt-get install -y obs-studio",
+            "dependencies": []
+        },
+        {
+            "id": "audacity",
+            "name": "Audacity",
+            "type": "audio-editing",
+            "description": "Audio editor and recorder",
+            "install_command": "sudo apt-get install -y audacity",
+            "dependencies": []
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "name": "Automator",
+    "version": "1.0",
+    "update_url": "https://example.com/config.json",
+    "instruction_files": {
+        "development": {
+            "name": "Server",
+            "remote_url": "https://example.com/instructions/dev-tools.json",
+            "local_path": "instructions/dev-tools.json",
+            "local_version": "1.0",
+            "auto_update": true
+        },
+        "media": {
+            "name": "Media Tools",
+            "remote_url": "https://example.com/instructions/media-tools.json",
+            "local_path": "instructions/media-tools.json",
+            "local_version": "0.0",
+            "auto_update": true
+        }
+    },
+    "settings": {
+        "auto_update": true,
+        "verify_checksums": true,
+        "instructions_cache_dir": "instructions"
+    }
+}

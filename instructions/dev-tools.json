@@ -1,0 +1,47 @@
+{
+    "version": "1.0",
+    "category": "development",
+    "description": "Development tools and programming languages",
+    "packages": [
+        {
+            "id": "python3-dev",
+            "name": "Python Development",
+            "type": "development",
+            "description": "Python development tools",
+            "install_command": "sudo apt-get install -y python3-dev python3-pip",
+            "dependencies": []
+        },
+        {
+            "id": "build-essential",
+            "name": "Build Essential",
+            "type": "development",
+            "description": "Basic build tools (gcc, make, etc.)",
+            "install_command": "sudo apt-get install -y build-essential",
+            "dependencies": []
+        },
+        {
+            "id": "nodejs",
+            "name": "Node.js",
+            "type": "development",
+            "description": "Node.js JavaScript runtime",
+            "install_command": "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - && sudo apt-get install -y nodejs",
+            "dependencies": []
+        },
+        {
+            "id": "docker",
+            "name": "Docker",
+            "type": "containerization",
+            "description": "Docker container platform",
+            "install_command": "curl -fsSL https://get.docker.com | sudo sh",
+            "dependencies": []
+        },
+        {
+            "id": "vscode",
+            "name": "Visual Studio Code",
+            "type": "ide",
+            "description": "Microsoft's code editor",
+            "install_command": "sudo snap install --classic code",
+            "dependencies": []
+        }
+    ]
+}
