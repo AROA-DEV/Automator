@@ -1,0 +1,4 @@
+config_dir: "~/.automator"
+registry_file: "registry.json"
+tools_dir: "tools"
+remote_source: "https://raw.githubusercontent.com/AROA-DEV/automator/main"
