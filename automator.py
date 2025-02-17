@@ -10,12 +10,15 @@ import subprocess
 from rich.table import Table
 import os
 from datetime import datetime
+import time
+from urllib.parse import urlparse
 
 class ConfigManager:
     def __init__(self, config_path: str):
         self.console = Console()
         self.config_path = Path(config_path)
         self.config: Dict[str, Any] = {}
+        self.backup_config = None
         self.load_config()
 
     def load_config(self) -> None:
@@ -42,7 +45,14 @@ class ConfigManager:
             "settings": {
                 "auto_update": True,
                 "verify_checksums": True,
-                "instructions_cache_dir": "instructions"
+                "instructions_cache_dir": "instructions",
+                "error_handling": {
+                    "max_retry_attempts": 3,
+                    "retry_delay_ms": 5000,
+                    "connection_timeout_ms": 10000,
+                    "offline_mode_on_failure": True,
+                    "fallback_config_path": "backup/config.json"
+                }
             }
         }
         self.save_config(default_config)
@@ -56,25 +66,135 @@ class ConfigManager:
         except Exception as e:
             self.console.print(f"[red]Error saving config: {str(e)}")
 
-    def update_from_url(self, url: str) -> bool:
-        """Update configuration from URL"""
+    def _validate_url(self, url: str) -> bool:
+        """Validate URL format and accessibility"""
         try:
-            with Progress() as progress:
-                task = progress.add_task("[cyan]Downloading config...", total=1)
-                response = requests.get(url)
-                progress.update(task, completed=1)
-                
-            if response.status_code == 200:
-                new_config = response.json()
-                self.save_config(new_config)
-                self.console.print("[green]Configuration updated successfully")
-                return True
-            else:
-                self.console.print("[red]Failed to download configuration")
-                return False
-        except Exception as e:
-            self.console.print(f"[red]Error updating config: {str(e)}")
+            result = urlparse(url)
+            return all([result.scheme in ['http', 'https'], result.netloc])
+        except Exception:
             return False
+
+    def update_from_url(self, url: str) -> bool:
+        """Update configuration from URL with retry logic"""
+        if not url or not self._validate_url(url):
+            self.console.print("[red]Invalid update URL. Please check config.json")
+            self.console.print(f"[yellow]Current URL: {url}")
+            return False
+
+        error_settings = self.config.get('settings', {}).get('error_handling', {})
+        max_retries = error_settings.get('max_retry_attempts', 3)
+        retry_delay = error_settings.get('retry_delay_ms', 5000) / 1000
+        timeout = error_settings.get('connection_timeout_ms', 10000) / 1000
+
+        headers = {
+            'User-Agent': f'Automator/{self.config.get("version", "1.0")}',
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache'
+        }
+
+        for attempt in range(max_retries):
+            try:
+                with Progress() as progress:
+                    task = progress.add_task(
+                        f"[cyan]Downloading config (Attempt {attempt + 1}/{max_retries})...", 
+                        total=1
+                    )
+                    
+                    response = requests.get(
+                        url,
+                        timeout=timeout,
+                        headers=headers,
+                        verify=True,
+                        allow_redirects=True
+                    )
+                    progress.update(task, completed=1)
+                
+                if response.status_code == 200:
+                    try:
+                        new_config = response.json()
+                        self._backup_current_config()
+                        self.save_config(new_config)
+                        self.console.print("[green]Configuration updated successfully")
+                        return True
+                    except json.JSONDecodeError:
+                        self.console.print("[red]Invalid JSON response from server")
+                        self.console.print(f"[yellow]Response preview: {response.text[:200]}")
+                else:
+                    self.console.print(
+                        f"[yellow]Attempt {attempt + 1}/{max_retries}: "
+                        f"Server returned status {response.status_code}"
+                    )
+                    if response.status_code == 404:
+                        self.console.print("[red]Update URL not found. Please verify the URL is correct.")
+                        return False
+                    
+            except requests.exceptions.SSLError as e:
+                self.console.print(f"[red]SSL verification failed: {str(e)}")
+                return False
+                
+            except requests.exceptions.ConnectionError as e:
+                self.console.print(
+                    f"[yellow]Attempt {attempt + 1}/{max_retries}: "
+                    f"Connection failed - {str(e)}"
+                )
+            except requests.exceptions.Timeout as e:
+                self.console.print(
+                    f"[yellow]Attempt {attempt + 1}/{max_retries}: "
+                    f"Request timed out after {timeout} seconds"
+                )
+            except Exception as e:
+                self.console.print(
+                    f"[yellow]Attempt {attempt + 1}/{max_retries}: "
+                    f"Unexpected error - {str(e)}"
+                )
+
+            if attempt < max_retries - 1:
+                self.console.print(f"[yellow]Waiting {retry_delay} seconds before retry...")
+                time.sleep(retry_delay)
+
+        self.console.print("[red]All download attempts failed")
+        
+        # All attempts failed, try to load backup
+        if self._load_backup_config():
+            return False
+        
+        # If offline mode is enabled, continue with current config
+        if error_settings.get('offline_mode_on_failure', True):
+            self.console.print(
+                "[yellow]Continuing with local configuration\n"
+                "To retry, please check:\n"
+                "1. Your internet connection\n"
+                "2. The update URL in config.json\n"
+                "3. Server availability"
+            )
+            return False
+            
+        return False
+
+    def _backup_current_config(self) -> None:
+        """Backup current configuration"""
+        error_settings = self.config.get('settings', {}).get('error_handling', {})
+        backup_path = error_settings.get('fallback_config_path', 'backup/config.json')
+        try:
+            os.makedirs(os.path.dirname(backup_path), exist_ok=True)
+            with open(backup_path, 'w') as f:
+                json.dump(self.config, f, indent=4)
+        except Exception as e:
+            self.console.print(f"[yellow]Failed to create backup: {str(e)}")
+
+    def _load_backup_config(self) -> bool:
+        """Try to load backup configuration"""
+        error_settings = self.config.get('settings', {}).get('error_handling', {})
+        backup_path = error_settings.get('fallback_config_path', 'backup/config.json')
+        try:
+            if os.path.exists(backup_path):
+                with open(backup_path, 'r') as f:
+                    self.config = json.load(f)
+                self.console.print("[yellow]Loaded backup configuration")
+                return True
+        except Exception as e:
+            self.console.print(f"[red]Failed to load backup: {str(e)}")
+        return False
 
     def ensure_cache_dir(self) -> None:
         """Ensure the instructions cache directory exists"""
@@ -98,25 +218,70 @@ class ConfigManager:
             needs_update = False
 
         if needs_update:
-            try:
-                response = requests.get(instruction_info['remote_url'])
-                if response.status_code == 200:
-                    instructions = response.json()
-                    with open(local_path, 'w') as f:
-                        json.dump(instructions, f, indent=4)
-                    instruction_info['local_version'] = instructions.get('version', '1.0')
-                    instruction_info['last_updated'] = datetime.now().isoformat()
-                    self.save_config(self.config)
-                    return instructions
-            except Exception as e:
-                self.console.print(f"[red]Error fetching instructions: {str(e)}")
+            error_settings = self.config.get('settings', {}).get('error_handling', {})
+            max_retries = error_settings.get('max_retry_attempts', 3)
+            retry_delay = error_settings.get('retry_delay_ms', 5000) / 1000
+            timeout = error_settings.get('connection_timeout_ms', 10000) / 1000
+
+            headers = {
+                'User-Agent': f'Automator/{self.config.get("version", "1.0")}',
+                'Accept': 'application/json',
+                'Cache-Control': 'no-cache'
+            }
+
+            for attempt in range(max_retries):
+                try:
+                    with Progress() as progress:
+                        task = progress.add_task(
+                            f"[cyan]Downloading instructions (Attempt {attempt + 1}/{max_retries})...", 
+                            total=1
+                        )
+                        response = requests.get(
+                            instruction_info['remote_url'],
+                            timeout=timeout,
+                            headers=headers,
+                            verify=True,
+                            allow_redirects=True
+                        )
+                        progress.update(task, completed=1)
+
+                    if response.status_code == 200:
+                        try:
+                            instructions = response.json()
+                            with open(local_path, 'w') as f:
+                                json.dump(instructions, f, indent=4)
+                            instruction_info['local_version'] = instructions.get('version', '1.0')
+                            instruction_info['last_updated'] = datetime.now().isoformat()
+                            self.save_config(self.config)
+                            return instructions
+                        except json.JSONDecodeError:
+                            self.console.print("[red]Invalid JSON response from server")
+                            self.console.print(f"[yellow]Response preview: {response.text[:200]}")
+                    else:
+                        self.console.print(f"[yellow]Failed to download instructions (HTTP {response.status_code})")
+
+                except Exception as e:
+                    self.console.print(f"[yellow]Attempt {attempt + 1}/{max_retries}: {str(e)}")
+                
+                if attempt < max_retries - 1:
+                    self.console.print(f"[yellow]Retrying in {retry_delay} seconds...")
+                    time.sleep(retry_delay)
+
+            self.console.print("[red]Failed to download instructions after all attempts")
                 
         # Fall back to local file if exists
         if local_path.exists():
-            with open(local_path, 'r') as f:
-                return json.load(f)
+            try:
+                with open(local_path, 'r') as f:
+                    return json.load(f)
+            except Exception as e:
+                self.console.print(f"[red]Error reading local instructions: {str(e)}")
         
-        raise FileNotFoundError(f"No local or remote instructions found for {category}")
+        raise FileNotFoundError(
+            f"[red]No local or remote instructions found for {category}.\n"
+            f"Remote URL: {instruction_info.get('remote_url', 'Not configured')}\n"
+            f"Local path: {local_path}"
+        )
 
 class SoftwareManager:
     def __init__(self, config_manager: ConfigManager):
